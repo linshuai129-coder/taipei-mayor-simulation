@@ -38,6 +38,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{
   background:var(--bg); color:var(--ink); font-family:var(--f-sans); font-size:15px; line-height:1.65;
   padding-block:0 48px;
@@ -436,13 +437,13 @@ const SM_BAD={high:['說明太長太慢，沒有蓋過對手的攻擊。'],mid:[
 
 const ACTIONS=[
  {id:'market',tier:'high',tag:'g',name:'市場掃街',desc:'到傳統市場逐攤拜訪，握手、買菜、聽意見。',up:.7,down:.3,fl:0,sk:{grass:4,img:1},fk:{img:-1},ok:'攤商和市民很熱情，照片和短影音在社群流傳。',bad:'時間沒抓好，攤商正忙，現場反應平淡。'},
- {id:'forum',tier:'high',tag:'m',name:'社區座談',desc:'和里民面對面談議題，現場答問。',up:.7,down:.3,fl:0,sk:{mid:3,img:1},fk:{img:-1},ok:'提問踴躍，居民對說明的方式給了好評。',bad:'來的人不多，問題也偏離主題。'},
+ {id:'forum',tier:'high',tag:'m',name:'與議員聯合總部成立',desc:'和地方議員參選人一起成立聯合競選總部，現場公布市政主張。',up:.7,down:.3,fl:0,sk:{mid:3,img:1},fk:{img:-1},ok:'議員參選人同台站台，現場宣布的市政主張被媒體完整報導。',bad:'場面偏向拉抬議員，市政主張沒有被聽見。'},
  {id:'presser',tier:'high',tag:'m',name:'政策記者會',desc:'公布一份政策說帖，回答記者提問。',up:.6,down:.3,fl:0,sk:{mid:2,img:2},fk:{img:-1,opn:-1},ok:'媒體以政策為主軸報導，沒有被別的新聞蓋掉。',bad:'記者追問別的新聞，政策反而沒人談。'},
  {id:'lizhang',tier:'high',tag:'g',name:'拜會里長與社團',desc:'拜訪里長、社區協會與職業團體。',up:.6,down:.2,fl:0,sk:{grass:4},fk:{grass:-1},ok:'地方人士表態歡迎，組織動員多了助力。',bad:'地方有些人持觀望態度，沒有明確表態。'},
  {id:'tv',tier:'mid',tag:'x',name:'政論節目',desc:'上電視談政見，接受主持人與來賓提問。',up:1.4,down:.7,fl:0,sk:{opn:5,img:1},fk:{img:-3,opn:-2},ok:'幾段發言被剪成短片大量轉傳。',bad:'被來賓連續追問，答得不夠俐落。'},
  {id:'live',tier:'mid',tag:'m',name:'社群直播',desc:'開直播回答網友提問，不設稿。',up:1.3,down:.6,fl:0,sk:{mid:4,opn:3},fk:{opn:-3},ok:'留言互動熱絡，年輕觀眾留下來看完。',bad:'直播中出現口誤，被截圖流傳。'},
  {id:'temple',tier:'mid',tag:'g',name:'宮廟與辦桌',desc:'跑宮廟、參加里民辦桌，一桌一桌敬酒。',up:1.4,down:.6,fl:0,sk:{grass:5},fk:{img:-1,grass:-1},ok:'當地鄉親認同你肯來，場面熱絡。',bad:'行程撞期遲到，被當地人看在眼裡。'},
- {id:'youth',tier:'mid',tag:'m',name:'青年座談',desc:'到校園與年輕人談租屋、就業與生活成本。',up:1.3,down:.6,fl:0,sk:{mid:4,img:2},fk:{img:-1},ok:'年輕人提出的問題很具體，現場氣氛輕鬆。',bad:'題目太硬，年輕人聽得意興闌珊。'},
+ {id:'youth',tier:'mid',tag:'m',name:'廣播節目專訪',desc:'上廣播節目接受主持人專訪，談政見與市政，聽眾可以連線提問。',up:1.3,down:.6,fl:0,sk:{mid:4,img:2},fk:{img:-1},ok:'主持人與聽眾連線提問，節目片段在社群被轉傳。',bad:'節目時間有限，被主持人帶開話題，重點沒講完。'},
  {id:'enemytv',tier:'low',tag:'x',name:'敵營政論節目',desc:'到立場偏向對手陣營的節目，直接面對質疑。',up:3.0,down:1.0,fl:1.7,sk:{opn:6,img:3},fk:{img:-5,opn:-2},ok:'你沒有被帶著走，對手的支持者也聽進去了一部分。',bad:'節目全程被針對，片段被對手剪成攻擊素材。'},
  {id:'rival',tier:'low',tag:'x',name:'深入對手票倉',desc:'到對手支持者集中的社區拜票。',up:3.0,down:1.0,fl:1.4,sk:{grass:4,img:2},fk:{img:-3},ok:'有人原本只想看熱鬧，離開時願意再聽你說。',bad:'現場有人高聲抗議，畫面對你不利。'},
  {id:'rally',tier:'low',tag:'g',name:'大型造勢晚會',desc:'辦大型集會，動員支持者並搶新聞版面。',up:3.0,down:1.0,fl:0,sk:{grass:3,opn:4},fk:{img:-2,opn:-3},ok:'人潮超出預期，新聞畫面氣勢十足。',bad:'人潮不如預期，空位被拍進鏡頭。'},
@@ -450,6 +451,7 @@ const ACTIONS=[
 ];
 const LISTEN={id:'listen',only:'orange',tier:'high',tag:'m',name:'市長，你給我聽好了',desc:'肥皂箱快閃對談：現場抽市民提案單，直接上台回應。',up:.7,down:.3,fl:0,sk:{mid:3,img:2},fk:{img:-1},ok:'抽中的提案單當場逐一回應，現場對談被大量轉傳。',bad:'被問到細節時答得不夠具體，場面略顯尷尬。'};
 const CONVOY={id:'convoy',only:'orange',tier:'high',tag:'g',name:'台北大洋流車掃',desc:'組車隊沿街掃過，支持者夾道歡迎，沿途同步公布在地政見。',up:.7,down:.3,fl:0,sk:{grass:4,opn:2},fk:{img:-1,opn:-1},ok:'沿途支持者夾道歡迎，車隊畫面被大量轉傳，在地政見跟著被討論。',bad:'車隊在路口被紅燈切成好幾段，沿途聲勢被稀釋。'};
+const WHACK={id:'whack',only:'blue',tier:'mid',tag:'x',name:'陪黃國昌打地鼠直播',desc:'和黃國昌一起開直播玩打地鼠，邊玩邊聊市政，網友即時留言。',up:1.4,down:.6,fl:0,sk:{opn:5,img:1},fk:{img:-2},ok:'直播氣氛輕鬆，打地鼠的畫面被剪成短片大量轉傳。',bad:'直播節奏被打亂，片段被剪成笑點在社群流傳。'};  // 藍方專屬，整局固定出現一次（第四個選項，不在隨機池）
 const EXTRA={high:[LISTEN,CONVOY],mid:[],low:[]};   // 沈伯洋陣營專屬行程
 const ORANGE_OUT=['lizhang'];                        // 沈伯洋陣營不會抽到的行程（由車掃取代「拜會里長與社團」）
 function actionPool(side,tier){
@@ -459,7 +461,7 @@ function actionPool(side,tier){
 }
 const ACT_P={high:.75,mid:.5,low:.3};
 // 藍方局的對手（沈伯洋）行動與升溫參數
-const AI_CFG={grow:[.8,1.4],cc:.13,cg:3,h0:.55,dh:.17,p0:.005,dp:.04,ms:4,mf:3,momW:.0012,tw:[[.6,.3,.1],[.4,.4,.2],[.2,.4,.4]]};
+const AI_CFG={cap:3.0,surgeAt:4.0,surgeP:.45,payMax:1.5,undec:3.0,grow:[.8,1.4],cc:.13,cg:3,h0:.55,dh:.17,p0:.005,dp:.04,ms:4,mf:3,momW:.0012,tw:[[.6,.3,.1],[.4,.4,.2],[.2,.4,.4]]};
 const DEBATE=[
  {id:'stable',name:'穩健說明',desc:'用數據與時程說明政見，不主動挑起衝突。',tier:'high',p:.7,up:.8,down:.4,fl:0,sk:{},fk:{}},
  {id:'cross',name:'交叉詰問',desc:'針對對手說法追問細節，要求當場回答。',tier:'mid',p:.5,up:.6,down:.9,fl:1.2,sk:{opn:2},fk:{img:-2}},
@@ -480,7 +482,9 @@ function newGame(side){
     usedSmear:[], breakLeft:side==='orange'?2:0,
     aiBreakRounds:shuffle([0,1,2,3,4,5]).slice(0,2),
     mom:50, cane:false, caneRound:Math.floor(Math.random()*4),
-    hist:[{b:BASE.blue,o:BASE.orange,w:BASE.swing}], pollShown:false
+    hist:[{b:BASE.blue,o:BASE.orange,w:BASE.swing}], pollShown:false,
+    whackRound:side==='blue'?Math.floor(Math.random()*6):-1,
+    surgeOK:side==='blue'&&Math.random()<AI_CFG.surgeP, surgeUsed:false, pool:{g:0,f:0}
   };
 }
 function gain(G,who,d){
@@ -499,7 +503,16 @@ function gain(G,who,d){
 function flip(G,who,f){const o=other(who);f=Math.min(f,Math.max(0,G.S[o]-5));G.S[o]-=f;G.S[who]+=f;return f;}
 function stat(G,k,d){G.st[k]=clamp(G.st[k]+d,0,100);}
 function stats(G,obj){for(const k in obj)stat(G,k,obj[k]);}
-function recordPoll(G){G.hist.push({b:G.S.blue,o:G.S.orange,w:G.S.swing});}
+function shareS(G){const st=G.st;return clamp(.5+.004*(st.mid-50)+.002*(st.img-50)+.002*(st.opn-50)-(G.side==='blue'?AI_CFG.momW*(G.mom-50):0),.2,.8);}
+function recordPoll(G){G.hist.push({b:G.S.blue,o:G.S.orange,w:G.S.swing,s:shareS(G)});}
+// 含傾向民調：未表態者依目前的中間選民、形象、輿論推估傾向，越接近開票越多人表態，真正未決約 undec 點
+function projectHist(G){
+  return G.hist.map((p,i)=>{
+    if(i===0||p.s===undefined)return {b:p.b,o:p.o,w:p.w};
+    const Lq=Math.max(0,p.w-AI_CFG.undec)*(i/7),sb=G.side==='blue'?p.s:1-p.s;
+    return {b:p.b+Lq*sb,o:p.o+Lq*(1-sb),w:p.w-Lq};
+  });
+}
 function snap(G){return {b:G.S.blue,o:G.S.orange,w:G.S.swing,mid:G.st.mid,grass:G.st.grass,img:G.st.img,opn:G.st.opn};}
 function diff(a,b){const r={};for(const k in a)r[k]=b[k]-a[k];return r;}
 const L=(k,h,t)=>({k,h,t});
@@ -567,7 +580,9 @@ function playSmear(G,ev,idx){
   return {lines};
 }
 function drawActions(G){
-  return TIERS_ORDER.map(t=>pick(actionPool(G.side,t)));
+  const a=TIERS_ORDER.map(t=>pick(actionPool(G.side,t)));
+  if(G.side==='blue'&&G.round===G.whackRound)a.push(WHACK);
+  return a;
 }
 function actionP(G,a){
   let p=ACT_P[a.tier];
@@ -601,40 +616,71 @@ function aiTurn(G,round,topic){
   const o=G.opp,lines=[];
   if(G.side==='blue'){
     const C=AI_CFG;
-    gain(G,o,rnd(C.grow[0],C.grow[1]));
+    const growth=rnd(C.grow[0],C.grow[1]);
+    gain(G,o,growth);
     // 追趕：玩家領先越多，沈伯洋追得越快
     const gap0=G.S.blue-G.S.orange;
-    if(gap0>C.cg)gain(G,o,C.cc*(gap0-C.cg));
+    const chase=gap0>C.cg?C.cc*(gap0-C.cg):0;
     const heat=C.h0+C.dh*round;
     const w=C.tw[Math.min(2,Math.floor(round/2))],r=Math.random();
     const tier=r<w[0]?'high':r<w[0]+w[1]?'mid':'low';
     const a=pick(actionPool(o,tier));
     const p=clamp(ACT_P[tier]+C.p0+C.dp*round+(G.mom-50)/300,.1,.9);
-    if(Math.random()<p){
-      gain(G,o,a.up*heat);if(a.fl)flip(G,o,a.fl*FLIP*heat);
-      G.mom=clamp(G.mom+C.ms,0,100);
+    const win=Math.random()<p;
+    let pg=chase,pf=0;
+    if(win){pg+=a.up*heat;if(a.fl)pf+=a.fl*FLIP*heat;}
+    const isBrk=G.aiBreakRounds.includes(round);
+    let brkWin=false;
+    if(isBrk){
+      const bp=clamp(.45-(G.st.img-50)/400,.2,.65);
+      brkWin=Math.random()<bp;
+      if(brkWin){pf+=rnd(2.0,3.2)*FLIP;pg+=.6;}
+    }
+    // 暴增：本局有資格、單回合總增幅達門檻、整局只出現一次；其餘情況把超過上限的部分記進待發放池，之後分攤
+    const Tvar=pg+pf,Ttot=growth+Tvar;
+    let surge=false,k=1;
+    if(Ttot>=C.surgeAt&&G.surgeOK&&!G.surgeUsed){surge=true;G.surgeUsed=true;}
+    else if(Ttot>C.cap&&Tvar>0){k=Math.min(1,Math.max(.6,C.cap-growth)/Tvar);}
+    if(pg>0)gain(G,o,pg*k);
+    if(pf>0)flip(G,o,pf*k);
+    G.pool.g+=pg*(1-k);G.pool.f+=pf*(1-k);
+    if(win)G.mom=clamp(G.mom+C.ms,0,100);else{gain(G,o,-a.down);G.mom=clamp(G.mom-C.mf,0,100);}
+    if(surge){
+      lines.push(L('bad',TCOL[o]+'突然暴增','這一回合'+TCOL[o]+'聲量大漲，支持度一口氣上升約 '+Ttot.toFixed(1)+' 點。橘營聲量 '+Math.round(G.mom)+'。'));
+    }else if(win){
       lines.push(L('bad',TCOL[o]+'行程成功：'+a.name,TCOL[o]+'的行程聲量上揚，民調往上走。橘營聲量 '+Math.round(G.mom)+'。'));
     }else{
-      gain(G,o,-a.down);G.mom=clamp(G.mom-C.mf,0,100);
       lines.push(L('info',TCOL[o]+'行程不如預期：'+a.name,TCOL[o]+'這一站沒有掀起太多討論。橘營聲量 '+Math.round(G.mom)+'。'));
+    }
+    // 把先前壓下來的增幅，在還有空間的回合慢慢補上
+    const poolTot=G.pool.g+G.pool.f;
+    if(!surge&&poolTot>.001){
+      const room=Math.max(0,C.cap-(growth+Tvar*k));
+      const pay=Math.min(poolTot,room,C.payMax);
+      if(pay>.05){
+        const q=pay/poolTot;
+        gain(G,o,G.pool.g*q);flip(G,o,G.pool.f*q);
+        G.pool.g*=1-q;G.pool.f*=1-q;
+        if(pay>=.3)lines.push(L('info',TCOL[o]+'持續動員','基層動員與口碑累積，民調穩步上升。'));
+      }
     }
     const gp=G.S.blue-G.S.orange;
     lines.push(L(gp<3?'bad':'info','雙方差距 '+(gp>=0?gp.toFixed(1)+' 點':'橘營反超 '+(-gp).toFixed(1)+' 點'),gp>6?'你還有空間，但對手每一站都在追。':gp>=3?'差距在縮小，對手逼近中。':gp>=0?'已經咬得很緊，任何失誤都可能被超車。':'你被超車了，要想辦法追回來。'));
+    if(isBrk){
+      if(brkWin)lines.push(L('bad','橘營發動破圈','橘營在「'+topic.title+'」上主動喊話跨黨派選民，你的部分支持者鬆動。'));
+      else{gain(G,'orange',-.8);lines.push(L('ok','橘營破圈失利','橘營的跨界說法沒有引起共鳴，對手聲量反而下滑。'));}
+    }
   }else{
     gain(G,o,rnd(AI_LO,AI_HI));
     lines.push(L('info',TCOL[o]+'動態',TCOL[o]+pick(AI_LINES)));
   }
-  if(G.side==='blue'&&G.aiBreakRounds.includes(round)){
-    const p=clamp(.45-(G.st.img-50)/400,.2,.65);
-    if(Math.random()<p){
-      flip(G,'orange',rnd(2.0,3.2)*FLIP);gain(G,'orange',.6);
-      lines.push(L('bad','橘營發動破圈','橘營在「'+topic.title+'」上主動喊話跨黨派選民，你的部分支持者鬆動。'));
-    }else{
-      gain(G,'orange',-.8);
-      lines.push(L('ok','橘營破圈失利','橘營的跨界說法沒有引起共鳴，對手聲量反而下滑。'));
-    }
-  }
   return {lines};
+}
+function payPool(G,frac){
+  if(G.side!=='blue')return null;
+  const P=G.pool,tot=P.g+P.f;if(tot<.05)return null;
+  gain(G,G.opp,P.g*frac);flip(G,G.opp,P.f*frac);P.g*=1-frac;P.f*=1-frac;
+  return tot*frac>=.2?L('info',TCOL[G.opp]+'持續動員','辯論前後持續動員，民調穩步上升。'):null;
 }
 function debateP(G,d){return clamp(d.p+(G.st.img-50)/250+(G.st.opn-50)/400,.1,.9);}
 function playDebate(G,d){
@@ -651,7 +697,7 @@ function playDebate(G,d){
 }
 function finalize(G){
   const st=G.st,S=G.S;
-  const s=clamp(.5+.004*(st.mid-50)+.002*(st.img-50)+.002*(st.opn-50)-(G.side==='blue'?AI_CFG.momW*(G.mom-50):0),.2,.8);
+  const s=shareS(G);
   const F={blue:S.blue,orange:S.orange};
   F[G.side]+=S.swing*s;F[other(G.side)]+=S.swing*(1-s);
   const dB=F.blue-BASE.blue,dO=F.orange-BASE.orange;
@@ -757,7 +803,7 @@ function actionHtml(){
     <div class="kicker">第 ${G.round+1} 題之後 · 競選行程</div>
     <h2 class="q">下一站去哪裡？</h2>
     <p class="bgtxt">成功率越低，成功時民調賺得越多；失敗的話，掉得也越多。低機率行程也更容易帶來爆紅或意外失誤。</p>
-    <div class="opts">${view.acts.map((a,i)=>`<button class="opt" data-a="action" data-i="${i}"><span class="t">${a.name}</span><span class="d">${a.desc}</span><span class="meta">${tierChip(a.tier,actionP(G,a))}<span class="chip up">成功 +${(a.up+a.fl*FLIP).toFixed(1)}</span><span class="chip down">失敗 −${a.down.toFixed(1)}</span>${a.fl?'<span class="chip bl">可爭取對手支持者</span>':''}${a.only?'<span class="chip or">橘方專屬</span>':''}</span></button>`).join('')}</div>
+    <div class="opts">${view.acts.map((a,i)=>`<button class="opt" data-a="action" data-i="${i}"><span class="t">${a.name}</span><span class="d">${a.desc}</span><span class="meta">${tierChip(a.tier,actionP(G,a))}<span class="chip up">成功 +${(a.up+a.fl*FLIP).toFixed(1)}</span><span class="chip down">失敗 −${a.down.toFixed(1)}</span>${a.fl?'<span class="chip bl">可爭取對手支持者</span>':''}${a.only?(a.only==='blue'?'<span class="chip bl">藍方專屬 · 本局限定</span>':'<span class="chip or">橘方專屬</span>'):''}</span></button>`).join('')}</div>
   </section>`;
 }
 function debateHtml(){
@@ -806,7 +852,7 @@ function pollSvg(H,lf=pollLabel){
   const f=n=>n.toFixed(1);
   let g='';
   for(let v=lo;v<=hi;v+=5)g+=`<line class="grid" x1="${L}" x2="${W-R}" y1="${f(y(v))}" y2="${f(y(v))}"/><text x="${L-6}" y="${f(y(v)+4)}" text-anchor="end">${v}%</text>`;
-  const ser=[['b','藍營','var(--blue)'],['o','橘營','var(--orange)'],['w','未表態','var(--swing)']];
+  const ser=[['b','藍營','var(--blue)'],['o','橘營','var(--orange)'],['w','未決','var(--swing)']];
   ['b','o'].forEach(k=>{
     const up=H.map((p,i)=>`${f(x(i))},${f(y(p[k]+M))}`),dn=H.map((p,i)=>`${f(x(i))},${f(y(p[k]-M))}`).reverse();
     g+=`<polygon points="${up.concat(dn).join(' ')}" style="fill:var(--${k==='b'?'blue':'orange'});opacity:.13"/>`;
@@ -821,20 +867,20 @@ function pollSvg(H,lf=pollLabel){
   for(let i=1;i<lab.length;i++)if(lab[i].y-lab[i-1].y<14)lab[i].y=lab[i-1].y+14;
   lab.forEach(l=>{g+=`<text x="${f(x(H.length-1)+9)}" y="${f(l.y+4)}" style="fill:${l.c};font-weight:700;font-size:12px">${l.nm} ${f(last[l.k])}%</text>`;});
   H.forEach((p,i)=>{g+=`<text x="${f(x(i))}" y="${HT-10}" text-anchor="${i===0?'start':i===H.length-1?'end':'middle'}">${lf(i)}</text>`;});
-  const desc='民調走勢：'+H.map((p,i)=>`${pollLabel(i)} 蔣萬安 ${f(p.b)}%、沈伯洋 ${f(p.o)}%、未表態 ${f(p.w)}%`).join('；');
+  const desc='民調走勢：'+H.map((p,i)=>`${pollLabel(i)} 蔣萬安 ${f(p.b)}%、沈伯洋 ${f(p.o)}%、未決 ${f(p.w)}%`).join('；');
   return `<svg class="pollsvg" viewBox="0 0 ${W} ${HT}" role="img" aria-label="${desc}">${g}</svg>`;
 }
 function pollHtml(){
-  const H=G.hist,first=H[0],last=H[H.length-1],M=POLL.moe,gap=last.b-last.o,ag=Math.abs(gap);
+  const H=projectHist(G),first=H[0],last=H[H.length-1],M=POLL.moe,gap=last.b-last.o,ag=Math.abs(gap);
   const hl=ag<=M?`蔣萬安與沈伯洋差距 ${ag.toFixed(1)} 點，在誤差範圍內，勝負難分`:`${gap>0?'蔣萬安':'沈伯洋'}領先 ${ag.toFixed(1)} 點`;
   const dlt=(a,b)=>{const d=a-b;return (d>=0.05?'+':d<=-0.05?'−':'±')+Math.abs(d).toFixed(1);};
   const tile=(cls,nm,k,you)=>`<div class="${cls}"><span class="nm">${nm}${you?'<span class="you">你</span>':''}</span><span class="n">${last[k].toFixed(1)}<small style="display:inline;font-size:14px">%</small></span><small>較起點 ${dlt(last[k],first[k])}</small></div>`;
   return `<div class="pollhd"><div><div class="kicker"><span class="alertt">期中民調</span>遊戲模擬</div><h2 id="pollttl">台北市長選情民調走勢</h2></div><button class="pollx" data-pa="close" aria-label="關閉期中民調">×</button></div>
-  <p class="pollmeta"><span>調查時間：${pollLabel(H.length-1)}後（遊戲內）</span><span>樣本數：${POLL.n.toLocaleString('en-US')} 份</span><span>95% 信心水準，抽樣誤差 ±${M.toFixed(1)} 個百分點</span></p>
+  <p class="pollmeta"><span>調查時間：${pollLabel(H.length-1)}後（遊戲內）</span><span>樣本數：${POLL.n.toLocaleString('en-US')} 份</span><span>95% 信心水準，抽樣誤差 ±${M.toFixed(1)} 個百分點</span><span>含傾向推估：未表態者依目前評價分配，約剩 ${AI_CFG.undec.toFixed(1)}% 真正未決</span></p>
   <p class="pollhl">${hl}</p>
-  <div class="pollsum">${tile('pb','蔣萬安（藍）','b',G.side==='blue')}${tile('po','沈伯洋（橘）','o',G.side==='orange')}${tile('pw','未表態','w',false)}</div>
+  <div class="pollsum">${tile('pb','蔣萬安（藍）','b',G.side==='blue')}${tile('po','沈伯洋（橘）','o',G.side==='orange')}${tile('pw','未決','w',false)}</div>
   ${pollSvg(H)}
-  <table class="pollt"><thead><tr><th>時點</th><th>蔣萬安</th><th>沈伯洋</th><th>未表態</th><th>差距</th></tr></thead><tbody>${H.map((p,i)=>`<tr><td>${pollLabel(i)}</td><td class="b">${p.b.toFixed(1)}%</td><td class="o">${p.o.toFixed(1)}%</td><td>${p.w.toFixed(1)}%</td><td>${Math.abs(p.b-p.o).toFixed(1)}</td></tr>`).join('')}</tbody></table>
+  <table class="pollt"><thead><tr><th>時點</th><th>蔣萬安</th><th>沈伯洋</th><th>未決</th><th>差距</th></tr></thead><tbody>${H.map((p,i)=>`<tr><td>${pollLabel(i)}</td><td class="b">${p.b.toFixed(1)}%</td><td class="o">${p.o.toFixed(1)}%</td><td>${p.w.toFixed(1)}%</td><td>${Math.abs(p.b-p.o).toFixed(1)}</td></tr>`).join('')}</tbody></table>
   <p class="pollfn">這是遊戲模擬，不是真實民調，也不預測選舉結果。起點為 2022 年得票率；陰影是抽樣誤差範圍；其他候選人約 0.6% 未列入。</p>
   <button class="btn" data-pa="close">關閉，回到結果</button>`;
 }
@@ -892,7 +938,7 @@ stage.addEventListener('click',e=>{
       next:()=>{G.round++;if(G.round>=6)goDebate(0);else goTopic();}});
   }
   if(a==='debate'){
-    const before=snap(G),k=view.dq;const r=playDebate(G,DEBATE[i]);
+    const before=snap(G),k=view.dq;const r=playDebate(G,DEBATE[i]);{const pl=payPool(G,1/(3-k));if(pl)r.lines.push(pl);}
     return showResult({before,tag:`電視辯論 · 第 ${k+1} / 3 問`,title:view.dtopic.title,lines:r.lines,cls:'alert',track:6,
       nextLabel:k>=2?'前往開票':'下一問',next:()=>{if(k>=2){recordPoll(G);startCount();}else goDebate(k+1);}});
   }
@@ -1033,7 +1079,7 @@ function tickCount(){
 }
 // 全部民調 + 開票結果對照（民調走勢線只畫民調；開票結果獨立呈現，不接在走勢線上）
 function cmpHtml(F,T,tot){
-  const H=G.hist,last=H[H.length-1],M=POLL.moe;
+  const H=projectHist(G),last=H[H.length-1],M=POLL.moe;
   const vb=T.b/tot*100,vo=T.o/tot*100,vx=T.x/tot*100;
   const dl=x=>(x>=0.05?'+':x<=-0.05?'−':'±')+Math.abs(x).toFixed(1);
   const rows=H.map((p,i)=>`<tr><td>${pollLabel(i)}</td><td class="b">${p.b.toFixed(1)}%</td><td class="o">${p.o.toFixed(1)}%</td><td>${p.w.toFixed(1)}%</td><td>${Math.abs(p.b-p.o).toFixed(1)}</td></tr>`).join('');
@@ -1043,7 +1089,7 @@ function cmpHtml(F,T,tot){
       <p class="pollmeta"><span>樣本數：${POLL.n.toLocaleString('en-US')} 份</span><span>95% 信心水準，抽樣誤差 ±${M.toFixed(1)} 個百分點</span></p>
       ${pollSvg(H,pollLabelShort)}
       <p class="pollfn">橫軸：起點、第 1–6 回合結束後、辯論後。陰影是抽樣誤差範圍。</p>
-      <table class="pollt"><thead><tr><th>時點</th><th>蔣萬安</th><th>沈伯洋</th><th>未表態</th><th>差距</th></tr></thead><tbody>${rows}</tbody></table>
+      <table class="pollt"><thead><tr><th>時點</th><th>蔣萬安</th><th>沈伯洋</th><th>未決</th><th>差距</th></tr></thead><tbody>${rows}</tbody></table>
       <h3>二、開票結果（另列，不接在民調線上）</h3>
       <div class="cmpres">
         <div class="pb"><span class="nm">蔣萬安（藍）</span><span class="n">${vb.toFixed(1)}%</span><small>${fmt(T.b)} 票</small></div>
@@ -1055,7 +1101,7 @@ function cmpHtml(F,T,tot){
         <tr><td>開票結果</td><td class="b">${vb.toFixed(1)}%</td><td class="o">${vo.toFixed(1)}%</td><td>${dl(vb-vo)}</td></tr>
         <tr><td>開票減民調</td><td>${dl(vb-last.b)}</td><td>${dl(vo-last.o)}</td><td>${dl((vb-vo)-(last.b-last.o))}</td></tr>
       </tbody></table>
-      <p class="pollfn">民調未表態 ${last.w.toFixed(1)}% 在開票時依你的中間選民、形象、輿論分配，所以開票得票率和民調數字不會相同。這是遊戲模擬，不是真實民調，也不預測選舉結果。</p>
+      <p class="pollfn">這裡的民調已把有傾向的未表態者依你的中間選民、形象、輿論推估進來，真正未決約剩 ${last.w.toFixed(1)}%，開票時才分配，所以兩邊數字會略有出入。這是遊戲模擬，不是真實民調，也不預測選舉結果。</p>
     </div>
   </details>`;
 }
