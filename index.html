@@ -79,8 +79,8 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .brkleft b{color:var(--orange)}
 
 /* Cards */
-.card{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--ink);padding:18px;margin-top:16px}
-.card.blue{border-top-color:var(--blue-solid)} .card.orange{border-top-color:var(--orange)} .card.alert{border-top-color:var(--live)}
+.card{background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--ink);padding:18px;margin-top:16px;box-shadow:6px 6px 0 var(--line)}
+.card.blue{border-left-color:var(--blue-solid)} .card.orange{border-left-color:var(--orange)} .card.alert{border-left-color:var(--live)}
 .kicker{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
 .kicker .alertt{background:var(--live);color:#fff;padding:1px 8px;margin-right:6px;letter-spacing:.08em}
 h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
@@ -281,15 +281,84 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
   :root:not([data-theme="light"]) .hud .midp,:root:not([data-theme="light"]) .hud .stat .l{color:#c6cfdd}
 }
 :root[data-theme="dark"] .hud .midp,:root[data-theme="dark"] .hud .stat .l{color:#c6cfdd}
+
+/* ===== v6: poster look, avatars, key-moment news bits ===== */
+.av{width:100%;height:100%;display:block}
+/* HUD: avatar + slanted colour blocks */
+.hud .polls{align-items:stretch;gap:4px}
+.hud .cand{display:flex;align-items:center;gap:5px;padding:6px 8px}
+.hud .cand.r{flex-direction:row-reverse}
+.hud .cand .tx{min-width:0}
+.hud .cand .face{flex:none;width:34px;height:34px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.92);border:2px solid rgba(255,255,255,.92)}
+.hud .cand .nm{font-size:14px}
+.hud .cand .num{font-size:30px}
+.hud .polls .cand:first-child{clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);padding-right:14px}
+.hud .polls .cand.r{clip-path:polygon(10px 0,100% 0,100% 100%,0 100%);padding-left:14px}
+.midp{align-self:center;padding-bottom:0}
+/* poster header on the pick screen */
+.posterhd{position:relative;height:clamp(190px,56vw,250px);margin-top:16px;background:linear-gradient(100deg,var(--blue-solid) 0 50%,var(--orange) 50% 100%);overflow:hidden}
+.posterhd::after{content:"";position:absolute;left:50%;top:-10%;width:22px;height:120%;background:var(--bg);transform:translateX(-50%) skewX(-14deg)}
+.posterhd .pa{position:absolute;bottom:0;width:48%;height:94%}
+.posterhd .pa.l{left:0}.posterhd .pa.r{right:0}
+.posterhd .pn{position:absolute;top:8px;z-index:3;font-weight:900;font-size:clamp(20px,6vw,28px);line-height:1.1}
+.posterhd .pn.l{left:12px;color:#fff}.posterhd .pn.r{right:12px;color:#1d1103}
+.posterhd .pv{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:4;font-family:var(--f-num);font-weight:700;font-style:italic;font-size:36px;line-height:1.2;color:#fff;background:var(--live);padding:0 14px;letter-spacing:.06em}
+.sides{grid-template-columns:1fr 1fr}
+.side .ava{border-radius:50%;overflow:hidden;background:rgba(255,255,255,.92)}
+@media (max-width:540px){ .sides{grid-template-columns:1fr} }
+/* key-moment news bar + speech box */
+.nbar{display:flex;gap:8px;align-items:center;margin:-18px -18px 14px;background:var(--live);color:#fff;font-weight:900;padding:7px 14px;font-size:13px;min-width:0}
+.nbar .bg{flex:none;background:#fff;color:var(--live);padding:0 7px;font-size:11px;letter-spacing:.1em}
+.speak{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;margin:0 0 16px}
+.speak.solo{grid-template-columns:1fr}
+.sf{width:56px;height:56px;border-radius:50%;overflow:hidden;background:var(--bg);border:3px solid var(--ink)}
+.bub{position:relative;min-width:0;background:var(--bg);border:2px solid var(--ink);padding:9px 12px;font-size:14px;color:var(--ink)}
+.bub b{display:block;font-size:12px;letter-spacing:.06em;margin-bottom:2px}
+.speak:not(.solo) .bub::before{content:"";position:absolute;left:-9px;top:18px;width:14px;height:14px;background:var(--bg);border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg)}
+.duel{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:0 0 12px}
+.duel .df{width:84px;height:84px;border-radius:50%;overflow:hidden;border:4px solid var(--line)}
+.duel .df:first-child{border-color:var(--blue-solid);background:var(--blue-soft)}
+.duel .df:last-child{border-color:var(--orange);background:var(--orange-soft)}
+.dvs{font-family:var(--f-num);font-weight:700;font-style:italic;font-size:30px;line-height:1.2;color:var(--live)}
+.ntick{display:flex;gap:8px;align-items:center;background:#000;color:#fff;border-top:2px solid var(--live);padding:8px 12px;margin-top:10px;font-size:13px;font-weight:700;min-width:0}
+.ntick .tg{flex:none;background:var(--live);padding:0 6px;font-size:11px;font-weight:900}
+.ntick span:last-child{min-width:0;overflow-wrap:anywhere}
+/* final page faces */
+.endfaces{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px 0 4px}
+.ef{width:96px;height:96px;border-radius:50%;overflow:hidden;border:4px solid var(--line);background:var(--bg)}
+.ef.b{border-color:var(--blue-solid)}.ef.o{border-color:var(--orange)}
+.ef:not(.win){filter:grayscale(.55);opacity:.85}
+.efv{font-family:var(--f-num);font-weight:700;font-style:italic;font-size:28px;color:var(--live)}
+/* count night: avatars + district fill */
+.cb{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center}
+.cb .cface{grid-column:1;grid-row:1;width:36px;height:36px;border-radius:50%;overflow:hidden;background:#fff}
+.cb .who{grid-column:2;grid-row:1}
+.cb .votes,.cb .pc{grid-column:1 / -1}
+.cb .tag{grid-column:1 / -1}
+@media (max-width:540px){ .dgrid{grid-template-columns:repeat(3,1fr);gap:6px} .dc{padding:6px 7px} .dc h4{font-size:12px;white-space:nowrap} .dc h4 em{font-size:11px} .dc .nums{font-size:13px;gap:4px} .dc.fin .fl{font-size:11px} }
+.dc{transition:background .3s}
+.dc.fin.wb{background:#1b2a9c;border-color:var(--tv-blue-fill);color:#fff}
+.dc.fin.wo{background:#8a4a0c;border-color:var(--tv-orange);color:#fff3e3}
+.dc.fin.wb h4 em,.dc.fin.wb .fl{color:#dfe5ff}
+.dc.fin.wo h4 em,.dc.fin.wo .fl{color:#ffe3c2}
+.dc.fin.wb .prog,.dc.fin.wo .prog{background:rgba(255,255,255,.25)}
+.dc.fin.wb .prog i,.dc.fin.wo .prog i{background:#fff}
+.dc.fin.wb .split{background:rgba(255,255,255,.22)}
+.dc.fin.wo .split{background:rgba(0,0,0,.35)}
+.dc.fin.wb .split .b{background:#9bb0ff}.dc.fin.wb .split .x{background:#cdd3e4}.dc.fin.wb .split .o{background:#ff9a3a}
+.dc.fin.wo .split .b{background:#7d93ff}.dc.fin.wo .split .x{background:#d8c9b3}.dc.fin.wo .split .o{background:#ffc47f}
+.dc.fin.wb .nums .b{color:#cfd8ff}.dc.fin.wb .nums .o{color:#ffd3a3}
+.dc.fin.wo .nums .b{color:#cbd5ff}.dc.fin.wo .nums .o{color:#ffe6c4}
+.dc.fin .fl{font-size:12px}
 </style>
 
 <div class="wrap">
   <header class="hud" id="hud" hidden>
     <div class="track" id="track"></div>
     <div class="polls">
-      <div class="cand"><div class="nm blue-t">蔣萬安<span class="you" id="youB" hidden>你</span></div><div class="num blue-t"><span id="pcB">42.3</span><small>%</small></div></div>
+      <div class="cand"><span class="face" id="faceB"></span><div class="tx"><div class="nm blue-t">蔣萬安<span class="you" id="youB" hidden>你</span></div><div class="num blue-t"><span id="pcB">42.3</span><small>%</small></div></div></div>
       <div class="midp">游移選民<b id="pcS">25.1%</b></div>
-      <div class="cand r"><div class="nm orange-t">沈伯洋<span class="you" id="youO" hidden>你</span></div><div class="num orange-t"><span id="pcO">31.9</span><small>%</small></div></div>
+      <div class="cand r"><span class="face" id="faceO"></span><div class="tx"><div class="nm orange-t">沈伯洋<span class="you" id="youO" hidden>你</span></div><div class="num orange-t"><span id="pcO">31.9</span><small>%</small></div></div></div>
     </div>
     <div class="bar" role="img" aria-label="目前民調分布"><i class="b" id="bB"></i><i class="s" id="bS"></i><i class="o" id="bO"></i></div>
     <div class="stats" id="stats"></div>
@@ -297,7 +366,7 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
   </header>
   <main id="stage"></main>
   <footer class="foot">
-    <p>這是遊戲，不是民調，也不預測選舉結果。議題背景整理自 2026 年 10 月的新聞報導；各選項、事件結果與開票數字由遊戲規則和隨機數產生，不代表候選人的實際言行。起始支持度與各區票數取自 2022 年台北市長選舉（蔣萬安 42.29%、陳時中 31.93%、黃珊珊 25.14%）。</p>
+    <p>這是遊戲，不是民調，也不預測選舉結果。議題背景整理自 2026 年 10 月的新聞報導；各選項、事件結果與開票數字由遊戲規則和隨機數產生，不代表候選人的實際言行。畫面中的頭像是卡通示意圖，不代表本人樣貌。起始支持度與各區票數取自 2022 年台北市長選舉（蔣萬安 42.29%、陳時中 31.93%、黃珊珊 25.14%）。</p>
     <ul>
       <li><a href="https://votetw.com/wiki/2022%E5%B9%B4%E8%87%BA%E5%8C%97%E5%B8%82%E5%B8%82%E9%95%B7%E9%81%B8%E8%88%89%E6%8A%95%E7%A5%A8%E7%B5%90%E6%9E%9C" target="_blank" rel="noopener">2022 年台北市長選舉各區投票結果（VoteTW）</a></li>
       <li><a href="https://www.thenewslens.com/article/270421" target="_blank" rel="noopener">毒品減害、營養午餐、「滲透」「破口」爭議（The News Lens）</a></li>
@@ -770,6 +839,48 @@ const fmt=n=>Math.round(n).toLocaleString('en-US');
 const sgn=(x,d)=>(x>0.0001?'+':x<-0.0001?'−':'±')+Math.abs(x).toFixed(d);
 const tierChip=(tier,p)=>`<span class="chip ${tier==='high'?'hi':tier==='mid'?'md':'lo'}">成功率 ${TIER_LABEL[tier]} ${Math.round(p*100)}%</span>`;
 
+// ---------- Avatars (cartoon, not likenesses) ----------
+function avSvg(who,mood,halo){
+  const b=who==='blue'||who==='b';
+  mood=mood||'n';
+  const suit=b?'#1b2a8a':'#1a1a22',tie=b?'#d9362b':'#4b2a7a',skin=b?'#f7d3b0':'#f5cfaa',neck=b?'#e9bb93':'#e6b68d',ink='#17181f';
+  const cheer=mood==='cheer',sad=mood==='sad',frown=mood==='frown'||sad,smile=mood==='smile'||cheer;
+  const lx=b?40:39.5,rx=b?60:60.5;
+  let g='';
+  if(halo)g+='<circle cx="50" cy="50" r="47" fill="#fff" opacity=".28"/>';
+  if(cheer)g+=`<path d="M16 86L9 47" stroke="${suit}" stroke-width="11" stroke-linecap="round"/><path d="M84 86L91 47" stroke="${suit}" stroke-width="11" stroke-linecap="round"/><circle cx="9" cy="42" r="6" fill="${skin}"/><circle cx="91" cy="42" r="6" fill="${skin}"/>`;
+  g+=`<path d="M10 100C12 79 30 72 50 72s38 7 40 28z" fill="${suit}"/><path d="M41 73l9 15 9-15z" fill="#fff"/><path d="M47.5 79h5l2.5 13-5 4-5-4z" fill="${tie}"/>`;
+  if(!b)g+='<circle cx="66" cy="84" r="2.6" fill="#e2700a"/>';
+  g+=`<rect x="43" y="60" width="14" height="15" rx="4" fill="${neck}"/><ellipse cx="50" cy="44" rx="25" ry="26" fill="${skin}"/>`;
+  g+=b?`<path d="M25 44C21 20 38 10 54 12c17 2 26 16 21 33-3-11-10-17-22-17-12 0-22 5-28 16z" fill="${ink}"/>`
+      :`<g fill="${ink}"><path d="M26 42C24 26 36 18 50 18s26 8 24 24c-3-7-9-11-24-11s-21 4-24 11z"/><circle cx="29" cy="30" r="8"/><circle cx="39" cy="22" r="8.5"/><circle cx="51" cy="19" r="9"/><circle cx="63" cy="22" r="8.5"/><circle cx="72" cy="30" r="8"/><circle cx="25" cy="40" r="6"/><circle cx="76" cy="40" r="6"/></g>`;
+  if(!b)g+=`<g fill="none" stroke="${ink}" stroke-width="2.4"><circle cx="${lx}" cy="47" r="7.5"/><circle cx="${rx}" cy="47" r="7.5"/><path d="M47 46.5q3-2 6 0"/></g>`;
+  if(cheer)g+=`<path d="M${lx-4.5} 48q4.5-6 9 0M${rx-4.5} 48q4.5-6 9 0" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>`;
+  else g+=`<circle cx="${lx}" cy="47" r="${b?2.8:2.4}" fill="${ink}"/><circle cx="${rx}" cy="47" r="${b?2.8:2.4}" fill="${ink}"/>`;
+  if(frown)g+=`<path d="M30 33L44 38M70 33L56 38" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
+  if(!frown)g+=`<circle cx="35" cy="55" r="4" fill="#f2a28f" opacity=".55"/><circle cx="65" cy="55" r="4" fill="#f2a28f" opacity=".55"/>`;
+  if(cheer)g+=`<path d="M41 55q9 15 18 0z" fill="#8a2b2b" stroke="${ink}" stroke-width="1.6" stroke-linejoin="round"/>`;
+  else if(smile)g+=`<path d="M42 56q8 9 16 0" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
+  else if(frown)g+=`<path d="M43 62q7-6 14 0" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
+  else g+=`<path d="M44 58q6 4 12 0" fill="none" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>`;
+  if(sad)g+='<path d="M33 57q-3 5 0 7q3-2 0-7z" fill="#7ec8f0"/>';
+  return `<svg class="av" viewBox="0 0 100 100" role="img" aria-label="${b?'蔣萬安':'沈伯洋'}頭像">${g}</svg>`;
+}
+// 領先微笑、落後皺眉、差距 3 點內持平
+function moodFor(who){
+  const g=who==='blue'?G.S.blue-G.S.orange:G.S.orange-G.S.blue;
+  return g>3?'smile':g<-3?'frown':'n';
+}
+function setFace(id,who,mood){
+  const el=document.getElementById(id);if(!el)return;
+  const key=who+mood;if(el.dataset.m===key)return;
+  el.dataset.m=key;el.innerHTML=avSvg(who,mood);
+}
+function ntick(){const S=G.S;return `<div class="ntick"><span class="tg">快訊</span><span>【即時】蔣萬安 ${S.blue.toFixed(1)}%｜沈伯洋 ${S.orange.toFixed(1)}%｜游移選民 ${S.swing.toFixed(1)}%</span></div>`;}
+function posterHd(pk){
+  return `<div class="posterhd" aria-hidden="true"><span class="pn l">蔣萬安</span><span class="pn r">沈伯洋</span><div class="pa l">${avSvg('blue',pk==='blue'?'smile':'n',true)}</div><div class="pa r">${avSvg('orange',pk==='orange'?'smile':'n',true)}</div><span class="pv">VS</span></div>`;
+}
+
 function buildHudStatic(){
   $('#stats').innerHTML=['mid','grass','img','opn'].map(k=>`<div class="stat"><div class="l"><span>${STAT_LABEL[k]}</span><b id="sv-${k}">50</b></div><div class="m"><i id="sb-${k}" style="width:50%"></i></div></div>`).join('');
 }
@@ -781,6 +892,7 @@ function updateHud(){
   const tot=S.blue+S.orange+S.swing+BASE.other;
   $('#bB').style.width=(S.blue/tot*100)+'%';$('#bS').style.width=((S.swing+BASE.other)/tot*100)+'%';$('#bO').style.width=(S.orange/tot*100)+'%';
   $('#youB').hidden=G.side!=='blue';$('#youO').hidden=G.side!=='orange';
+  setFace('faceB','blue',moodFor('blue'));setFace('faceO','orange',moodFor('orange'));
   ['mid','grass','img','opn'].forEach(k=>{$('#sv-'+k).textContent=Math.round(G.st[k]);$('#sb-'+k).style.width=G.st[k]+'%';});
   $('#brkleft').hidden=G.side!=='orange';$('#brkN').textContent=G.breakLeft;
   const cur=view.track;let h='';
@@ -796,7 +908,7 @@ function render(scroll=true){
 function sideCard(s){
   const on=view.pick===s,b=s==='blue';
   return `<button class="side ${s}${on?' sel':''}" data-a="pick" data-side="${s}" aria-pressed="${on}">
-      <span class="face"><span class="ava">${b?'蔣':'沈'}</span><span><span class="role">${b?'現任者 · 藍營':'挑戰者 · 橘營'}</span><br><span class="nm">${NAME[s]}</span></span><span class="tick">已選</span></span>
+      <span class="face"><span class="ava">${avSvg(s,on?'smile':'n')}</span><span><span class="role">${b?'現任者 · 藍營':'挑戰者 · 橘營'}</span><br><span class="nm">${NAME[s]}</span></span><span class="tick">已選</span></span>
       <span class="info">
         <span class="srow"><span>起點</span><span class="mt"><i style="width:${(b?BASE.blue:BASE.orange)/50*100}%"></i></span><b>${(b?BASE.blue:BASE.orange).toFixed(1)}%</b></span>
         <span class="srow"><span>難度</span><span>${b?'★★☆':'★★★'}</span><b></b></span>
@@ -809,8 +921,9 @@ function introHtml(){
     <div class="eyebrow">2026 九合一 · 台北市長</div>
     <h1>台北市長選戰模擬</h1>
     <p>6 題議題、競選行程、抹黑反擊、電視辯論，最後逐區開票</p>
+    ${posterHd(pk)}
     <p class="pick-ttl">選擇你的陣營</p>
-    <div class="sides">${sideCard('blue')}<div class="vs" aria-hidden="true">VS</div>${sideCard('orange')}</div>
+    <div class="sides">${sideCard('blue')}${sideCard('orange')}</div>
     <div class="startbar"><button class="startbtn ${pk||''}" data-a="go" ${pk?'':'disabled'}>${pk?'開始選戰：'+NAME[pk]:'請先選擇陣營'}</button></div>
     <details class="howto"><summary>玩法說明</summary><div class="howbody">
     <p style="margin:12px 0 0;color:var(--muted)">從 ${TOPICS.length} 個近期議題中抽 6 題，在競選行程裡冒險、被抹黑時反擊，最後打一場辯論，再看逐區開票。起點是 2022 年真實的得票數字。</p>
@@ -851,11 +964,12 @@ function topicHtml(){
 function smearHtml(){
   const ev=view.smear;
   return `<section class="card alert">
+    <div class="nbar"><span class="bg">BREAKING</span>${TCOL[G.opp]}發動攻勢，必須回應</div>
     <div class="kicker"><span class="alertt">遭到抹黑</span>強制反擊 · 三選一</div>
     <h2 class="q">${ev.title}</h2>
-    <p class="bgtxt">${ev.text}</p>
+    <div class="speak"><span class="sf">${avSvg(G.opp,'n')}</span><div class="bub"><b>${NAME[G.opp]}陣營 · 發言摘要</b>${ev.text}</div></div>
     <div class="opts">${ev.counters.map((c,i)=>{const tier=TIERS_ORDER[i];return `<button class="opt" data-a="smear" data-i="${i}"><span class="t">${c.t}</span><span class="d">${c.d}</span><span class="meta">${tierChip(tier,smearP(G,tier))}<span class="chip up">成功：對手支持者倒戈約 ${(TIER[tier].fl*FLIP).toFixed(1)} 點</span><span class="chip down">失敗：−${TIER[tier].loss.toFixed(1)}</span></span></button>`;}).join('')}</div>
-  </section>`;
+  </section>${ntick()}`;
 }
 function actionHtml(){
   return `<section class="card ${G.side}">
@@ -868,11 +982,13 @@ function actionHtml(){
 function debateHtml(){
   const t=view.dtopic,k=view.dq;
   return `<section class="card alert">
+    <div class="nbar"><span class="bg">LIVE</span>電視辯論 · 第 ${k+1} / 3 問</div>
+    <div class="duel"><span class="df">${avSvg('blue',moodFor('blue'))}</span><span class="dvs">VS</span><span class="df">${avSvg('orange',moodFor('orange'))}</span></div>
     <div class="kicker"><span class="alertt">電視辯論</span>第 ${k+1} / 3 問</div>
     <h2 class="q">${t.title}</h2>
-    <p class="bgtxt">${t.bg}</p>
+    <div class="speak solo"><div class="bub"><b>題目背景</b>${t.bg}</div></div>
     <div class="opts">${DEBATE.map((d,i)=>`<button class="opt" data-a="debate" data-i="${i}"><span class="t">${d.name}</span><span class="d">${d.desc}</span><span class="meta">${tierChip(d.tier,debateP(G,d))}<span class="chip up">成功 +${(d.up+d.fl*FLIP).toFixed(1)}</span><span class="chip down">失敗 −${d.down.toFixed(1)}</span></span></button>`).join('')}</div>
-  </section>`;
+  </section>${ntick()}`;
 }
 function resultHtml(){
   const v=view,d=v.d,me=G.side,op=G.opp;
@@ -889,7 +1005,7 @@ function resultHtml(){
     <ul class="lines">${v.lines.map(l=>`<li class="${l.k}"><b>${l.h}</b>${l.t}</li>`).join('')}</ul>
     <div class="deltas">${chips.join('')}</div>
     <div class="btnrow"><button class="btn" data-a="next">${v.nextLabel||'繼續'}</button>${v.pollGate&&G.pollShown?'<button class="btn ghost" data-a="poll">再看期中民調</button>':''}</div>
-  </section>`;
+  </section>${v.cls==='alert'?ntick():''}`;
 }
 function showResult(o){view={...view,phase:'result',...o,d:diff(o.before,snap(G))};render();}
 
@@ -1022,8 +1138,8 @@ function countSkeleton(){
   stage.innerHTML=`<section class="tv">
     <div class="tvbar"><span class="live">模擬開票</span><span class="ttl">台北市長 開票即時報</span><span class="sub" id="cSub">全市開票率 0%</span></div>
     <div class="board">
-      <div class="cb blue" id="cbB"><div class="who">蔣萬安 <small>藍</small></div><div class="votes" id="vB">0</div><div class="pc" id="pB">0.0%</div><div class="tag" id="tgB">領先</div></div>
-      <div class="cb orange" id="cbO"><div class="who">沈伯洋 <small>橘</small></div><div class="votes" id="vO">0</div><div class="pc" id="pO">0.0%</div><div class="tag" id="tgO">領先</div></div>
+      <div class="cb blue" id="cbB"><span class="cface" id="cfB"></span><div class="who">蔣萬安 <small>藍</small></div><div class="votes" id="vB">0</div><div class="pc" id="pB">0.0%</div><div class="tag" id="tgB">領先</div></div>
+      <div class="cb orange" id="cbO"><span class="cface" id="cfO"></span><div class="who">沈伯洋 <small>橘</small></div><div class="votes" id="vO">0</div><div class="pc" id="pO">0.0%</div><div class="tag" id="tgO">領先</div></div>
     </div>
     <div class="tbar"><i class="b" id="tbB"></i><i class="x" id="tbX"></i><i class="o" id="tbO"></i></div>
     <div class="tmeta"><span id="cLead">開票準備中</span><span id="cRem">尚未開出</span></div>
@@ -1122,6 +1238,8 @@ function tickCount(){
   cbB.classList.toggle('lead',lead==='blue'&&!certain);cbO.classList.toggle('lead',lead==='orange'&&!certain);
   cbB.classList.toggle('win',lead==='blue'&&certain);cbO.classList.toggle('win',lead==='orange'&&certain);
   $('#tgB').textContent=certain?'當選確定':'領先';$('#tgO').textContent=certain?'當選確定':'領先';
+  setFace('cfB','blue',certain?(lead==='blue'?'cheer':'sad'):lead==='blue'?'smile':lead==='orange'?'frown':'n');
+  setFace('cfO','orange',certain?(lead==='orange'?'cheer':'sad'):lead==='orange'?'smile':lead==='blue'?'frown':'n');
   $('#dgrid').innerHTML=c.ds.map(d=>{
     const k=ct(d),t=k.b+k.o+k.x||1,w=d.fin?(d.r.b>d.r.o?'wb':'wo'):'';
     return `<div class="dc ${d.fin?'fin':''} ${w}"><h4>${d.r.name}<em>${d.fin?'100%':(d.p*100).toFixed(0)+'%'}</em></h4><div class="prog"><i style="width:${d.p*100}%"></i></div><div class="split"><i class="b" style="width:${k.b/t*100}%"></i><i class="x" style="width:${k.x/t*100}%"></i><i class="o" style="width:${k.o/t*100}%"></i></div><div class="nums"><span class="b">${(k.b/t*100).toFixed(1)}%</span><span class="o">${(k.o/t*100).toFixed(1)}%</span></div><div class="fl">${d.fin?(d.r.b>d.r.o?'藍營 勝出':'橘營 勝出'):''}</div></div>`;
@@ -1135,6 +1253,7 @@ function tickCount(){
     $('#fin').hidden=false;$('#skipBtn').hidden=true;
     cbB.classList.toggle('win',w==='blue');cbO.classList.toggle('win',w==='orange');
     cbB.classList.remove('lead');cbO.classList.remove('lead');
+    setFace('cfB','blue',w==='blue'?'cheer':'sad');setFace('cfO','orange',w==='orange'?'cheer':'sad');
   }
 }
 // 全部民調 + 開票結果對照（民調走勢線只畫民調；開票結果獨立呈現，不接在走勢線上）
@@ -1174,6 +1293,7 @@ function finalHtml(){
   view.share=share;
   return `<section class="card ${F.winner}">
     <div class="kicker">模擬開票結果 · 不是預測</div>
+    <div class="endfaces"><span class="ef b${F.winner==='blue'?' win':''}">${avSvg('blue',F.winner==='blue'?'cheer':'sad')}</span><span class="efv">VS</span><span class="ef o${F.winner==='orange'?' win':''}">${avSvg('orange',F.winner==='orange'?'cheer':'sad')}</span></div>
     <h2 class="q">${won?'你當選了':'你落選了'}：${NAME[F.winner]}（${TCOL[F.winner]}）當選</h2>
     <div class="scroll"><table class="res"><thead><tr><th></th><th>得票數</th><th>得票率</th><th>對照 2022</th></tr></thead><tbody>
       ${row('蔣萬安','blue-t',T.b,42.29,'藍')}${row('沈伯洋','orange-t',T.o,31.93,'橘（對照陳時中）')}${row('其他','',T.x,0.64,'')}
