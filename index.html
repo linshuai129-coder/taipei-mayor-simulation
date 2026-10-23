@@ -350,6 +350,12 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
 .dc.fin.wb .nums .b{color:#cfd8ff}.dc.fin.wb .nums .o{color:#ffd3a3}
 .dc.fin.wo .nums .b{color:#cbd5ff}.dc.fin.wo .nums .o{color:#ffe6c4}
 .dc.fin .fl{font-size:12px}
+
+/* ===== v7: pixel avatars — square frames, crisp edges ===== */
+.av{image-rendering:pixelated}
+.hud .cand .face,.side .ava,.sf,.duel .df,.ef,.cb .cface{border-radius:0}
+.posterhd .pa{height:calc(100% - 46px);display:flex;align-items:flex-end;justify-content:center}
+.posterhd .pa .av{height:100%;width:auto;max-width:100%;aspect-ratio:1/1}
 </style>
 
 <div class="wrap">
@@ -366,7 +372,7 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
   </header>
   <main id="stage"></main>
   <footer class="foot">
-    <p>這是遊戲，不是民調，也不預測選舉結果。議題背景整理自 2026 年 10 月的新聞報導；各選項、事件結果與開票數字由遊戲規則和隨機數產生，不代表候選人的實際言行。畫面中的頭像是卡通示意圖，不代表本人樣貌。起始支持度與各區票數取自 2022 年台北市長選舉（蔣萬安 42.29%、陳時中 31.93%、黃珊珊 25.14%）。</p>
+    <p>這是遊戲，不是民調，也不預測選舉結果。議題背景整理自 2026 年 10 月的新聞報導；各選項、事件結果與開票數字由遊戲規則和隨機數產生，不代表候選人的實際言行。畫面中的像素頭像是卡通示意圖，不代表本人樣貌。起始支持度與各區票數取自 2022 年台北市長選舉（蔣萬安 42.29%、陳時中 31.93%、黃珊珊 25.14%）。</p>
     <ul>
       <li><a href="https://votetw.com/wiki/2022%E5%B9%B4%E8%87%BA%E5%8C%97%E5%B8%82%E5%B8%82%E9%95%B7%E9%81%B8%E8%88%89%E6%8A%95%E7%A5%A8%E7%B5%90%E6%9E%9C" target="_blank" rel="noopener">2022 年台北市長選舉各區投票結果（VoteTW）</a></li>
       <li><a href="https://www.thenewslens.com/article/270421" target="_blank" rel="noopener">毒品減害、營養午餐、「滲透」「破口」爭議（The News Lens）</a></li>
@@ -839,37 +845,112 @@ const fmt=n=>Math.round(n).toLocaleString('en-US');
 const sgn=(x,d)=>(x>0.0001?'+':x<-0.0001?'−':'±')+Math.abs(x).toFixed(d);
 const tierChip=(tier,p)=>`<span class="chip ${tier==='high'?'hi':tier==='mid'?'md':'lo'}">成功率 ${TIER_LABEL[tier]} ${Math.round(p*100)}%</span>`;
 
-// ---------- Avatars (cartoon, not likenesses) ----------
-function avSvg(who,mood,halo){
-  const b=who==='blue'||who==='b';
-  mood=mood||'n';
-  const suit=b?'#1b2a8a':'#1a1a22',tie=b?'#d9362b':'#4b2a7a',skin=b?'#f7d3b0':'#f5cfaa',neck=b?'#e9bb93':'#e6b68d',ink='#17181f';
-  const cheer=mood==='cheer',sad=mood==='sad',frown=mood==='frown'||sad,smile=mood==='smile'||cheer;
-  const lx=b?40:39.5,rx=b?60:60.5;
-  let g='';
-  if(halo)g+='<circle cx="50" cy="50" r="47" fill="#fff" opacity=".28"/>';
-  if(cheer)g+=`<path d="M16 86L9 47" stroke="${suit}" stroke-width="11" stroke-linecap="round"/><path d="M84 86L91 47" stroke="${suit}" stroke-width="11" stroke-linecap="round"/><circle cx="9" cy="42" r="6" fill="${skin}"/><circle cx="91" cy="42" r="6" fill="${skin}"/>`;
-  g+=`<path d="M10 100C12 79 30 72 50 72s38 7 40 28z" fill="${suit}"/><path d="M41 73l9 15 9-15z" fill="#fff"/><path d="M47.5 79h5l2.5 13-5 4-5-4z" fill="${tie}"/>`;
-  if(!b)g+='<circle cx="66" cy="84" r="2.6" fill="#e2700a"/>';
-  g+=`<rect x="43" y="60" width="14" height="15" rx="4" fill="${neck}"/><ellipse cx="50" cy="44" rx="25" ry="26" fill="${skin}"/>`;
-  g+=b?`<path d="M25 44C21 20 38 10 54 12c17 2 26 16 21 33-3-11-10-17-22-17-12 0-22 5-28 16z" fill="${ink}"/>`
-      :`<g fill="${ink}"><path d="M26 42C24 26 36 18 50 18s26 8 24 24c-3-7-9-11-24-11s-21 4-24 11z"/><circle cx="29" cy="30" r="8"/><circle cx="39" cy="22" r="8.5"/><circle cx="51" cy="19" r="9"/><circle cx="63" cy="22" r="8.5"/><circle cx="72" cy="30" r="8"/><circle cx="25" cy="40" r="6"/><circle cx="76" cy="40" r="6"/></g>`;
-  if(!b)g+=`<g fill="none" stroke="${ink}" stroke-width="2.4"><circle cx="${lx}" cy="47" r="7.5"/><circle cx="${rx}" cy="47" r="7.5"/><path d="M47 46.5q3-2 6 0"/></g>`;
-  if(cheer)g+=`<path d="M${lx-4.5} 48q4.5-6 9 0M${rx-4.5} 48q4.5-6 9 0" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>`;
-  else g+=`<circle cx="${lx}" cy="47" r="${b?2.8:2.4}" fill="${ink}"/><circle cx="${rx}" cy="47" r="${b?2.8:2.4}" fill="${ink}"/>`;
-  if(frown)g+=`<path d="M30 33L44 38M70 33L56 38" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
-  if(!frown)g+=`<circle cx="35" cy="55" r="4" fill="#f2a28f" opacity=".55"/><circle cx="65" cy="55" r="4" fill="#f2a28f" opacity=".55"/>`;
-  if(cheer)g+=`<path d="M41 55q9 15 18 0z" fill="#8a2b2b" stroke="${ink}" stroke-width="1.6" stroke-linejoin="round"/>`;
-  else if(smile)g+=`<path d="M42 56q8 9 16 0" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
-  else if(frown)g+=`<path d="M43 62q7-6 14 0" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
-  else g+=`<path d="M44 58q6 4 12 0" fill="none" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>`;
-  if(sad)g+='<path d="M33 57q-3 5 0 7q3-2 0-7z" fill="#7ec8f0"/>';
-  return `<svg class="av" viewBox="0 0 100 100" role="img" aria-label="${b?'蔣萬安':'沈伯洋'}頭像">${g}</svg>`;
+// ---------- Avatars (24x24 pixel art, cartoon, not likenesses) ----------
+// ===== Pixel avatars: 24x24 grid, rendered as SVG rects =====
+const PIX={O:'#0d0d14',ink:'#15151c',hl:'#3a3a4a',pink:'#f2a28f',teeth:'#ffffff',red:'#8a2b2b',mouth:'#8a3b3b',tear:'#7ec8f0',white:'#ffffff'};
+const PIX_B={suit:'#1b2a8a',suit2:'#2b3fb5',tie:'#d9362b',skin:'#f7d3b0',neck:'#e9bb93'};
+const PIX_O={suit:'#1a1a22',suit2:'#2e2e3a',tie:'#4b2a7a',skin:'#f5cfaa',neck:'#e6b68d',pin:'#e2700a',frame:'#a3a9b9',lens:'#e3f4ff',glint:'#ffffff'};
+let HAIR='big';
+function pixGrid(who,mood,hair){
+  const N=24,g=Array.from({length:N},()=>Array(N).fill(null));
+  const px=(x,y,c)=>{if(x>=0&&x<N&&y>=0&&y<N)g[y][x]=c;};
+  const rect=(x,y,w,h,c)=>{for(let j=0;j<h;j++)for(let i=0;i<w;i++)px(x+i,y+j,c);};
+  const b=who==='blue'||who==='b',C=b?PIX_B:PIX_O,P=PIX;
+  hair=hair||HAIR;mood=mood||'smile';if(mood==='n')mood='smile';
+  const laugh=mood==='laugh',cheer=mood==='cheer',sad=mood==='sad',frown=mood==='frown'||sad,smile=mood==='smile';
+  const lx=9,rx=14;
+  if(cheer){rect(1,9,2,10,C.suit);rect(1,7,2,2,C.skin);rect(21,9,2,10,C.suit);rect(21,7,2,2,C.skin);}
+  // body
+  rect(5,17,14,1,C.suit);rect(3,18,18,6,C.suit);
+  rect(10,17,4,3,P.white);rect(11,18,2,1,C.tie);rect(11,19,2,4,C.tie);
+  px(9,18,C.suit2);px(9,19,C.suit2);px(14,18,C.suit2);px(14,19,C.suit2);
+  if(!b)px(16,20,C.pin);
+  if(b){
+    // 蔣萬安：較窄較長的橢圓臉（寬 10、下巴收尖到第 16 列）
+    rect(10,15,4,3,C.neck);
+    rect(9,4,6,1,C.skin);rect(8,5,8,1,C.skin);rect(7,6,10,8,C.skin);
+    rect(8,14,8,1,C.skin);rect(9,15,6,1,C.skin);rect(10,16,4,1,C.skin);
+    px(6,10,C.neck);px(6,11,C.neck);px(17,10,C.neck);px(17,11,C.neck);
+    // 黑色旁分短髮
+    rect(9,2,6,1,P.ink);rect(8,3,8,1,P.ink);rect(7,4,10,2,P.ink);
+    px(7,6,P.ink);px(7,7,P.ink);px(16,6,P.ink);px(16,7,P.ink);
+    px(8,6,P.ink);px(9,6,P.ink);px(10,6,P.ink);
+    px(9,2,P.hl);px(9,3,P.hl);px(10,4,P.hl);px(12,3,P.hl);px(14,3,P.hl);
+  }else{
+    rect(10,15,4,2,C.neck);
+    rect(8,4,8,1,C.skin);rect(7,5,10,1,C.skin);rect(6,6,12,8,C.skin);rect(7,14,10,1,C.skin);rect(8,15,8,1,C.skin);
+    px(5,10,C.neck);px(5,11,C.neck);px(18,10,C.neck);px(18,11,C.neck);
+    if(hair==='big'){
+      // 大捲髮（爆炸頭）：蓬鬆一大團，超出頭寬
+      rect(7,0,10,1,P.ink);rect(5,1,14,1,P.ink);rect(3,2,18,1,P.ink);rect(2,3,20,3,P.ink);
+      rect(3,6,4,2,P.ink);rect(17,6,4,2,P.ink);rect(4,8,2,2,P.ink);rect(18,8,2,2,P.ink);
+      rect(7,6,10,1,P.ink);px(7,7,P.ink);px(9,7,P.ink);px(12,7,P.ink);px(15,7,P.ink);px(16,7,P.ink);
+      [[6,1],[10,0],[14,0],[17,1],[4,3],[8,2],[12,2],[16,3],[20,3],[3,5],[7,4],[11,3],[15,5],[19,5],[5,7],[18,7],[10,5],[13,4]].forEach(([x,y])=>px(x,y,P.hl));
+    }else{
+      // 短捲髮（耳上）
+      [8,9,11,12,14,15].forEach(x=>px(x,1,P.ink));
+      rect(6,2,12,1,P.ink);rect(5,3,14,3,P.ink);
+      [5,6,17,18].forEach(x=>{px(x,6,P.ink);px(x,7,P.ink);});
+      [7,8,10,11,13,14,16].forEach(x=>px(x,6,P.ink));
+      [[7,3],[10,2],[13,3],[16,2],[9,4],[12,4],[15,4],[7,5],[11,5],[14,5]].forEach(([x,y])=>px(x,y,P.hl));
+    }
+    // 細框圓眼鏡：框 + 淺藍透明鏡片（不是黑色）
+    [[8,13],[13,18]].forEach(([x0])=>{});
+    const lens=(cx)=>{
+      px(cx-1,9,C.frame);px(cx,9,C.frame);px(cx+1,9,C.frame);
+      px(cx-1,11,C.frame);px(cx,11,C.frame);px(cx+1,11,C.frame);
+      px(cx-2,10,C.frame);px(cx+2,10,C.frame);
+      px(cx-1,10,P.white);px(cx,10,P.white);px(cx+1,10,P.white);
+    };
+    lens(lx);lens(rx);
+  }
+  // 眼睛
+  if(b){
+    if(cheer)[lx,rx].forEach(x=>{px(x-1,11,P.ink);px(x,10,P.ink);px(x+1,11,P.ink);});
+    else [lx,rx].forEach(x=>{px(x,10,P.ink);px(x,11,P.ink);});
+  }else{
+    if(cheer)[lx,rx].forEach(x=>{px(x,10,P.ink);px(x+1,10,P.ink);});
+    else [lx,rx].forEach(x=>px(x,10,P.ink));
+  }
+  // 眉
+  if(frown){px(8,7,P.ink);px(9,8,P.ink);px(10,8,P.ink);px(15,7,P.ink);px(14,8,P.ink);px(13,8,P.ink);}
+  else{rect(8,8,3,1,P.ink);rect(13,8,3,1,P.ink);}
+  // 腮紅
+  if(!frown){px(b?8:7,12,P.pink);px(b?15:16,12,P.pink);}
+  // 嘴
+  if(cheer){
+    rect(10,12,4,1,P.teeth);rect(10,13,4,1,P.red);rect(11,14,2,1,P.red);
+    rect(9,12,1,2,P.ink);rect(14,12,1,2,P.ink);px(10,14,P.ink);px(13,14,P.ink);px(11,15,P.ink);px(12,15,P.ink);
+  }else if(laugh){
+    // 開口笑：嘴往下移，離眼睛更遠
+    rect(10,13,4,1,P.teeth);rect(10,14,4,1,P.red);rect(11,15,2,1,P.red);
+    px(9,13,P.mouth);px(14,13,P.mouth);px(10,15,P.mouth);px(13,15,P.mouth);
+  }else if(smile){
+    // 微笑：嘴角上揚的 U 形，往下移並加寬，離眼睛一格以上
+    px(9,13,P.mouth);px(14,13,P.mouth);rect(10,14,4,1,P.mouth);
+  }
+  else if(frown){rect(10,13,4,1,P.mouth);px(9,14,P.mouth);px(14,14,P.mouth);}
+  else rect(10,13,4,1,P.mouth);
+  if(sad){px(b?9:8,12,P.tear);px(b?9:8,13,P.tear);}
+  // 黑色細邊
+  const o=g.map(r=>r.slice());
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    if(g[y][x])continue;
+    if([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>g[y+dy]&&g[y+dy][x+dx]))o[y][x]=P.O;
+  }
+  return o;
 }
-// 領先微笑、落後皺眉、差距 3 點內持平
+function pixAv(who,mood,hair){
+  const g=pixGrid(who,mood,hair),N=24;let s='';
+  for(let y=0;y<N;y++){let x=0;while(x<N){const c=g[y][x];if(!c){x++;continue;}let x2=x;while(x2<N&&g[y][x2]===c)x2++;s+=`<rect x="${x}" y="${y}" width="${x2-x}" height="1.02" fill="${c}"/>`;x=x2;}}
+  const b=who==='blue'||who==='b';
+  return `<svg class="av" viewBox="0 0 24 24" shape-rendering="crispEdges" role="img" aria-label="${b?'蔣萬安':'沈伯洋'}像素頭像">${s}</svg>`;
+}
+function avSvg(who,mood){return pixAv(who,mood);}
+// 落後超過 3 點皺眉，其餘微笑（原本的持平改為微笑）；被選到時開口笑
 function moodFor(who){
   const g=who==='blue'?G.S.blue-G.S.orange:G.S.orange-G.S.blue;
-  return g>3?'smile':g<-3?'frown':'n';
+  return g<-3?'frown':'smile';
 }
 function setFace(id,who,mood){
   const el=document.getElementById(id);if(!el)return;
@@ -878,7 +959,7 @@ function setFace(id,who,mood){
 }
 function ntick(){const S=G.S;return `<div class="ntick"><span class="tg">快訊</span><span>【即時】蔣萬安 ${S.blue.toFixed(1)}%｜沈伯洋 ${S.orange.toFixed(1)}%｜游移選民 ${S.swing.toFixed(1)}%</span></div>`;}
 function posterHd(pk){
-  return `<div class="posterhd" aria-hidden="true"><span class="pn l">蔣萬安</span><span class="pn r">沈伯洋</span><div class="pa l">${avSvg('blue',pk==='blue'?'smile':'n',true)}</div><div class="pa r">${avSvg('orange',pk==='orange'?'smile':'n',true)}</div><span class="pv">VS</span></div>`;
+  return `<div class="posterhd" aria-hidden="true"><span class="pn l">蔣萬安</span><span class="pn r">沈伯洋</span><div class="pa l">${avSvg('blue',pk==='blue'?'laugh':'smile')}</div><div class="pa r">${avSvg('orange',pk==='orange'?'laugh':'smile')}</div><span class="pv">VS</span></div>`;
 }
 
 function buildHudStatic(){
@@ -908,7 +989,7 @@ function render(scroll=true){
 function sideCard(s){
   const on=view.pick===s,b=s==='blue';
   return `<button class="side ${s}${on?' sel':''}" data-a="pick" data-side="${s}" aria-pressed="${on}">
-      <span class="face"><span class="ava">${avSvg(s,on?'smile':'n')}</span><span><span class="role">${b?'現任者 · 藍營':'挑戰者 · 橘營'}</span><br><span class="nm">${NAME[s]}</span></span><span class="tick">已選</span></span>
+      <span class="face"><span class="ava">${avSvg(s,on?'laugh':'smile')}</span><span><span class="role">${b?'現任者 · 藍營':'挑戰者 · 橘營'}</span><br><span class="nm">${NAME[s]}</span></span><span class="tick">已選</span></span>
       <span class="info">
         <span class="srow"><span>起點</span><span class="mt"><i style="width:${(b?BASE.blue:BASE.orange)/50*100}%"></i></span><b>${(b?BASE.blue:BASE.orange).toFixed(1)}%</b></span>
         <span class="srow"><span>難度</span><span>${b?'★★☆':'★★★'}</span><b></b></span>
