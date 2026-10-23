@@ -356,6 +356,30 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
 .hud .cand .face,.side .ava,.sf,.duel .df,.ef,.cb .cface{border-radius:0}
 .posterhd .pa{height:calc(100% - 46px);display:flex;align-items:flex-end;justify-content:center}
 .posterhd .pa .av{height:100%;width:auto;max-width:100%;aspect-ratio:1/1}
+
+/* ===== v8: 選邊畫面頭像即按鈕；遊戲中快訊跑馬燈 ===== */
+.posterhd::after{pointer-events:none}
+.posterhd .pv{pointer-events:none;bottom:auto;top:6px}
+.posterhd .pbtn{position:absolute;top:0;bottom:0;width:50%;padding:0;border:0;background:transparent;color:inherit;cursor:pointer;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.posterhd .pbtn.l{left:0}.posterhd .pbtn.r{right:0}
+.posterhd .pa{position:absolute;left:0;right:0;top:52px;bottom:12px;width:100%;height:auto;display:flex;align-items:center;justify-content:center;transform-origin:50% 50%;transition:transform .2s,opacity .2s,filter .2s}
+.posterhd .pa .av{max-width:82%}
+.posterhd .pbtn.sel .pa{transform:scale(1.12)}
+.posterhd .pbtn.dim .pa{opacity:.6;filter:grayscale(.6);transform:scale(.9)}
+.posterhd .pbtn.sel{box-shadow:inset 0 -8px 0 #fff}
+.posterhd .pbtn:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+.sideone{margin-top:14px;text-align:left}
+.sideone .side{cursor:default;width:100%}
+.gtk{display:flex;align-items:stretch;background:#000;color:#fff;border-top:2px solid var(--live);margin-top:8px}
+.gtk .tg{flex:none;display:flex;align-items:center;background:var(--live);color:#fff;font-weight:900;font-size:11px;letter-spacing:.1em;padding:0 8px}
+.gtk .vw{position:relative;flex:1;min-width:0;height:38px;overflow:hidden;font-weight:700;font-size:12px;line-height:1.3}
+.gtk .tkm{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;padding:0 10px}
+.gtk .tkm span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gtk .tkm.in{animation:tkIn .45s cubic-bezier(.2,.8,.2,1) both}
+.gtk .tkm.out{animation:tkOut .45s ease-in both;pointer-events:none}
+.gtk .lb{font-weight:900}
+.gtk .lb.b{color:#8aa0ff}.gtk .lb.o{color:#ff9a3a}.gtk .lb.n{color:#fff}
+@media (prefers-reduced-motion:reduce){.gtk .tkm.in,.gtk .tkm.out{animation:none}}
 </style>
 
 <div class="wrap">
@@ -369,6 +393,7 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
     <div class="bar" role="img" aria-label="目前民調分布"><i class="b" id="bB"></i><i class="s" id="bS"></i><i class="o" id="bO"></i></div>
     <div class="stats" id="stats"></div>
     <div class="brkleft" id="brkleft" hidden>破圈剩餘 <b id="brkN">2</b> 次，可在任一題開始前啟動</div>
+    <div class="gtk" aria-label="競選快訊"><span class="tg">快訊</span><div class="vw" id="gtkv" aria-live="off"></div></div>
   </header>
   <main id="stage"></main>
   <footer class="foot">
@@ -734,7 +759,7 @@ function playAction(G,a){
   return {lines};
 }
 function aiTurn(G,round,topic){
-  const o=G.opp,lines=[];
+  const o=G.opp,lines=[];let oppAct=null;
   if(G.side==='blue'){
     const C=AI_CFG;
     const growth=rnd(C.grow[0],C.grow[1]);
@@ -748,6 +773,7 @@ function aiTurn(G,round,topic){
     const a=pick(actionPool(o,tier));
     const p=clamp(ACT_P[tier]+C.p0+C.dp*round+(G.mom-50)/300,.1,.9);
     const win=Math.random()<p;
+    oppAct={name:a.name,win};
     let pg=chase,pf=0;
     if(win){pg+=a.up*heat;if(a.fl)pf+=a.fl*FLIP*heat;}
     const isBrk=G.aiBreakRounds.includes(round);
@@ -795,7 +821,7 @@ function aiTurn(G,round,topic){
     gain(G,o,rnd(AI_LO,AI_HI));
     lines.push(L('info',TCOL[o]+'動態',TCOL[o]+pick(AI_LINES)));
   }
-  return {lines};
+  return {lines,act:oppAct};
 }
 function payPool(G,frac){
   if(G.side!=='blue')return null;
@@ -959,7 +985,9 @@ function setFace(id,who,mood){
 }
 function ntick(){const S=G.S;return `<div class="ntick"><span class="tg">快訊</span><span>【即時】蔣萬安 ${S.blue.toFixed(1)}%｜沈伯洋 ${S.orange.toFixed(1)}%｜游移選民 ${S.swing.toFixed(1)}%</span></div>`;}
 function posterHd(pk){
-  return `<div class="posterhd" aria-hidden="true"><span class="pn l">蔣萬安</span><span class="pn r">沈伯洋</span><div class="pa l">${avSvg('blue',pk==='blue'?'laugh':'smile')}</div><div class="pa r">${avSvg('orange',pk==='orange'?'laugh':'smile')}</div><span class="pv">VS</span></div>`;
+  const btn=(s,l)=>{const on=pk===s,b=s==='blue';
+    return `<button class="pbtn ${l}${on?' sel':''}${pk&&!on?' dim':''}" data-a="pick" data-side="${s}" aria-pressed="${on}" aria-label="選擇${NAME[s]}（${b?'藍營現任者':'橘營挑戰者'}）"><span class="pn ${l}">${NAME[s]}</span><span class="pa">${avSvg(s,on?'laugh':'neutral')}</span></button>`;};
+  return `<div class="posterhd">${btn('blue','l')}${btn('orange','r')}<span class="pv" aria-hidden="true">VS</span></div>`;
 }
 
 function buildHudStatic(){
@@ -987,14 +1015,14 @@ function render(scroll=true){
   if(scroll)window.scrollTo(0,0);
 }
 function sideCard(s){
-  const on=view.pick===s,b=s==='blue';
-  return `<button class="side ${s}${on?' sel':''}" data-a="pick" data-side="${s}" aria-pressed="${on}">
-      <span class="face"><span class="ava">${avSvg(s,on?'laugh':'smile')}</span><span><span class="role">${b?'現任者 · 藍營':'挑戰者 · 橘營'}</span><br><span class="nm">${NAME[s]}</span></span><span class="tick">已選</span></span>
+  const b=s==='blue';
+  return `<div class="side ${s} sel">
+      <span class="face"><span class="ava">${avSvg(s,'laugh')}</span><span><span class="role">${b?'現任者 · 藍營':'挑戰者 · 橘營'}</span><br><span class="nm">${NAME[s]}</span></span><span class="tick">已選</span></span>
       <span class="info">
         <span class="srow"><span>起點</span><span class="mt"><i style="width:${(b?BASE.blue:BASE.orange)/50*100}%"></i></span><b>${(b?BASE.blue:BASE.orange).toFixed(1)}%</b></span>
         <span class="srow"><span>難度</span><span>${b?'★★☆':'★★★'}</span><b></b></span>
         <span class="sk"><b>特色</b>${b?'起點領先約 10 點；對手會越追越近，要守住基本盤。專屬行程：陪黃國昌打地鼠直播（每局一次）。':'起點落後約 10 點，靠議題、反擊與行程追上對手。專屬行程：市長，你給我聽好了、台北大洋流車掃、夜市掃街（洋流）。'}</span>
-      </span></button>`;
+      </span></div>`;
 }
 function introHtml(){
   const pk=view.pick;
@@ -1004,8 +1032,8 @@ function introHtml(){
     <p>6 題議題、競選行程、抹黑反擊、電視辯論，最後逐區開票</p>
     ${posterHd(pk)}
     <p class="pick-ttl">選擇你的陣營</p>
-    <div class="sides">${sideCard('blue')}${sideCard('orange')}</div>
-    <div class="startbar"><button class="startbtn ${pk||''}" data-a="go" ${pk?'':'disabled'}>${pk?'開始選戰：'+NAME[pk]:'請先選擇陣營'}</button></div>
+    <p class="pick-sub">${pk?'想換邊？點另一位的頭像':'點上方的頭像，看起點、難度與專屬行程'}</p>
+    ${pk?`<div class="sideone">${sideCard(pk)}</div><div class="startbar"><button class="startbtn ${pk}" data-a="go">開始選戰：${NAME[pk]}</button></div>`:''}
     <details class="howto"><summary>玩法說明</summary><div class="howbody">
     <p style="margin:12px 0 0;color:var(--muted)">從 ${TOPICS.length} 個近期議題中抽 6 題，在競選行程裡冒險、被抹黑時反擊，最後打一場辯論，再看逐區開票。起點是 2022 年真實的得票數字。</p>
     <div class="rules">
@@ -1022,8 +1050,45 @@ function introHtml(){
     </div></details>
   </section>`;
 }
+
+// ---------- 遊戲中快訊跑馬燈：我方與對手剛做過的行程（由下往上一次一則，沿用開票夜樣式） ----------
+const NEWS={items:[],i:-1,timer:null};
+function newsShow(it){
+  const el=document.getElementById('gtkv');if(!el)return;
+  el.querySelectorAll('.tkm:not(.out)').forEach(o=>{o.classList.remove('in');o.classList.add('out');setTimeout(()=>o.remove(),520);});
+  const n=document.createElement('div');n.className='tkm in';
+  const sp=document.createElement('span');
+  const lb=document.createElement('b');lb.className='lb '+it.c;lb.textContent='【'+it.lb+'】';
+  sp.appendChild(lb);sp.appendChild(document.createTextNode(it.t));
+  n.appendChild(sp);el.appendChild(n);
+}
+function newsNext(){
+  const el=document.getElementById('gtkv');if(!el||!NEWS.items.length)return;
+  if(NEWS.items.length<2&&el.querySelector('.tkm:not(.out)'))return;
+  NEWS.i=(NEWS.i+1)%NEWS.items.length;newsShow(NEWS.items[NEWS.i]);
+}
+function newsStart(first){
+  clearInterval(NEWS.timer);
+  const el=document.getElementById('gtkv');if(el)el.innerHTML='';
+  NEWS.items=[first];NEWS.i=-1;newsNext();NEWS.timer=setInterval(newsNext,3600);
+}
+function newsStop(){clearInterval(NEWS.timer);NEWS.timer=null;}
+function newsPush(arr){NEWS.items=arr.concat(NEWS.items).slice(0,4);NEWS.i=-1;newsNext();}
+function pushActionNews(act,r,ai){
+  const me=G.side,op=G.opp,mc=me==='blue'?'b':'o',oc=op==='blue'?'b':'o';
+  const ok=!!(r.lines[0]&&r.lines[0].k==='ok');
+  const items=[{c:mc,lb:'我方・'+NAME[me],t:'「'+act.name+'」'+(ok?'成功，聲勢上揚':'不如預期，聲勢受挫')}];
+  if(ai.act){
+    const surge=ai.lines.some(l=>l.h.indexOf('突然暴增')>=0);
+    items.push({c:oc,lb:'對手・'+NAME[op],t:'「'+ai.act.name+'」'+(surge?'成功，聲量大漲':ai.act.win?'成功，民調上揚':'不如預期，沒掀起太多討論')});
+  }else{
+    items.push({c:oc,lb:'對手・'+NAME[op],t:ai.lines[0].t.replace(/。$/,'')});
+  }
+  newsPush(items);
+}
 function start(side){
   G=newGame(side);
+  newsStart({c:'n',lb:'選戰開跑',t:NAME.blue+'對上'+NAME.orange+'，雙方行程快訊會在這裡更新'});
   view={phase:'topic',track:0,topic:G.topics[0],useBreak:false};render();
 }
 function breakPanel(t){
@@ -1188,6 +1253,7 @@ stage.addEventListener('click',e=>{
     const blueAfterPlayer=G.S.blue;   // 玩家行程結算後、對手成長之前的藍營支持度
     const ai=aiTurn(G,G.round,G.topics[G.round]);
     recordPoll(G);
+    pushActionNews(act,r,ai);
     const allLines=caneLines(G,r.lines,ai.lines,blueAfterPlayer-before.b);
     return showResult({before,tag:`第 ${G.round+1} 題之後 · 行程結果`,title:act.name,lines:allLines,
       pollGate:G.round===2,
@@ -1256,7 +1322,7 @@ function startCount(){
   const F=finalize(G);G.F=F;
   cnt={F,t:0,fast:false,queue:[],tkUntil:null,lead:null,lastLeadT:-99,done:false,
     ds:F.rows.map(r=>({r,p:0,start:rnd(0,8),dur:rnd(23,34),bias:(Math.random()+Math.random()-1)*6,fin:false}))};
-  view={phase:'count'};hud.hidden=true;
+  view={phase:'count'};hud.hidden=true;newsStop();
   countSkeleton();window.scrollTo(0,0);
   pushNews('【模擬開票】12 區陸續開出（遊戲推演，不是真實開票）');
   tickCount();
