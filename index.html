@@ -447,9 +447,303 @@ h2.q{font-size:26px;line-height:1.28;font-weight:900;margin:6px 0 10px}
   .mapwrap{margin-top:2px}
   .mapinfo{font-size:12px;min-height:36px;padding:4px 8px}
 }
+
+
+
+
+
+
+/* ===== Broadcast studio UI (in-game + count night only; body.bc). Intro, final results and footer keep the poster look. ===== */
+body.bc,body.bc[data-bt="dark"]{--bg:#080d16;--surface:#111a29;--ink:#edf3fc;--muted:#a1aec2;--line:#28364c;--blue:#6c8dff;--blue-solid:#324de8;--blue-accent:#6c8dff;--on-blue:#fff;--blue-soft:#17264b;--orange:#ffad59;--on-orange:#241303;--orange-soft:#422b19;--swing:#8d9bb0;--swing-soft:#232d3b;--live:#ff394c;--good:#42d6a0;--bad:#ff7180;--warn:#ffc05c;color-scheme:dark}
+body.bc[data-bt="light"]{--bg:#e9eef6;--surface:#ffffff;--ink:#121924;--muted:#566275;--line:#d2d9e3;--blue:#0022CC;--blue-solid:#0022CC;--blue-accent:#0A5BD9;--on-blue:#fff;--blue-soft:#dbe8ff;--orange:#e2700a;--on-orange:#1d1103;--orange-soft:#ffe6cc;--swing:#7d8ba0;--swing-soft:#e4e9f0;--live:#d71f2e;--good:#0d7a55;--bad:#c42b39;--warn:#a96400;color-scheme:light}
+.studio-head{display:none}
+body.bc .studio-head{display:flex}
+body.bc .hud[hidden]{display:none}
+body.bc .studio-tg{appearance:none;border:1px solid #485a75;background:transparent;color:inherit;border-radius:99px;padding:3px 12px;font:700 11px var(--f-sans);letter-spacing:.06em;cursor:pointer}
+body.bc .studio-r{display:flex;align-items:center;gap:12px}
+body.bc .hud{top:30px}
+body.bc{background:radial-gradient(ellipse at 50% -20%,#192944 0,transparent 55%),var(--bg);padding-top:46px}
+body.bc::before{content:"LIVE  ·  台北市長選戰特別報導";height:30px;display:flex;align-items:center;justify-content:center;background:#d92338;color:#fff;font:900 11px var(--f-num);letter-spacing:.18em;box-shadow:0 3px 16px #ff394c55}
+body.bc .wrap{max-width:900px}
+body.bc .hud{background:rgba(8,13,22,.94);backdrop-filter:blur(14px);border-bottom:1px solid #34435c;box-shadow:0 10px 28px #0005}
+body.bc .track i{height:5px;border-radius:2px}
+body.bc .track i.done{background:#8393ad}
+body.bc .track i.cur{background:var(--live);box-shadow:0 0 12px #ff394c99}
+body.bc .cand .nm{letter-spacing:.03em}
+body.bc .cand .num{font-size:clamp(36px,8vw,48px);text-shadow:0 0 18px #ffffff18}
+body.bc .bar,body.bc .stat .m{border-radius:99px}
+body.bc .bar{height:12px;box-shadow:inset 0 1px 3px #0008}
+body.bc .bar .b{background:linear-gradient(90deg,#253ccc,#8199ff)}
+body.bc .bar .o{background:linear-gradient(90deg,#d86e26,#ffc078)}
+body.bc .stat .m{height:6px;overflow:hidden}
+body.bc .stat .m i{border-radius:99px;background:linear-gradient(90deg,#566783,#dce8ff)}
+body.bc .card{position:relative;overflow:hidden;border:1px solid #34435b;border-left:4px solid var(--ink);border-radius:12px;padding:clamp(18px,4vw,28px);background:linear-gradient(145deg,#152033,#0e1623 72%);box-shadow:0 18px 50px #0005;margin-top:20px}
+body.bc .card::before{content:"LIVE  ·  選戰特別報導";display:block;color:#ff6674;font-size:10px;font-weight:900;letter-spacing:.17em;margin-bottom:12px}
+body.bc .card.blue{border-left-color:var(--blue)}
+body.bc .card.orange{border-left-color:var(--orange)}
+body.bc .card.alert{border-left-color:var(--live)}
+body.bc .kicker{letter-spacing:.15em;text-transform:uppercase}
+body.bc .kicker .alertt{border-radius:3px;box-shadow:0 0 16px #ff394c55}
+body.bc h2.q{font-size:clamp(24px,5vw,34px);letter-spacing:-.02em}
+body.bc .bgtxt{border-left-color:#50617c;background:#ffffff06;padding:10px 12px;border-radius:0 8px 8px 0}
+body.bc .opt{border:1px solid #33435b;border-radius:8px;background:linear-gradient(110deg,#19263a,#111a29);padding:15px 16px;transition:transform .16s,border-color .16s,background .16s}
+body.bc .opt:hover{border-color:#91a6ca;transform:translateY(-2px);background:linear-gradient(110deg,#22314a,#141e2e)}
+body.bc .chip{border-radius:99px;background:#ffffff06;padding:1px 9px}
+body.bc .btn{border-radius:6px;letter-spacing:.08em;box-shadow:0 5px 18px #0005}
+body.bc .btn{background:#dce6f6;color:#111a29}
+body.bc .btn.ghost{color:var(--ink);border-color:#70819b;background:transparent}
+body.bc .tv{border:1px solid #354562;border-radius:12px;padding:clamp(14px,3vw,22px);box-shadow:0 20px 60px #0008;background:radial-gradient(ellipse at 50% -30%,#203354,#0a111d 65%)}
+body.bc .tvbar{padding-bottom:10px;border-bottom:1px solid var(--tv-line)}
+body.bc .live{border-radius:3px;box-shadow:0 0 18px #ff394c66;animation:livePulse 2s infinite}
+body.bc .cb{border-radius:6px;background:linear-gradient(140deg,#17253a,#0d1726);box-shadow:inset 0 1px #ffffff0c}
+body.bc .cb .votes{font-size:clamp(36px,8vw,52px)}
+body.bc .dc{border-radius:5px;background:#101b2b}
+body.bc .ticker{border-radius:4px;border-top-width:3px;background:linear-gradient(90deg,#170d13,#05070b)}
+body.bc .banner{border-radius:8px;box-shadow:0 0 32px #ff394c33}
+body.bc .banner.blue{background:linear-gradient(100deg,#263dd2,#617fff)}
+body.bc .banner.orange{background:linear-gradient(100deg,#d8651d,#ffad59)}
+body.bc .pollbox{border:1px solid #34435b;border-top:4px solid var(--live);border-radius:12px;box-shadow:0 22px 80px #000a}
+body.bc .cmp{border-color:#34435b;border-radius:8px;overflow:hidden}
+body.bc .cmp summary{background:#ffffff06}
+body.bc .cmpbody{background:#ffffff03}
+body.bc .res th,body.bc .res td{border-bottom-color:#34435b}
+body.bc .foot{border-top-color:#34435b}
+@keyframes livePulse{50%{box-shadow:0 0 4px #ff394c44;opacity:.82}}
+@media(prefers-reduced-motion:reduce){body.bc .live{animation:none}body.bc .opt{transition:none}}
+body.bc .studio-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 2px 14px;border-bottom:1px solid #485a75;margin-bottom:8px;color:#eaf0fa}
+body.bc .studio-mark{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:900;letter-spacing:.08em}
+body.bc .onair{display:inline-flex;align-items:center;gap:6px;color:#ff6474;font:900 11px var(--f-num);letter-spacing:.13em}
+body.bc .onair i{width:8px;height:8px;border-radius:50%;background:#ff394c;box-shadow:0 0 12px #ff394c;animation:livePulse 1.4s infinite}
+body.bc .studio-sub{font:600 10px var(--f-num);letter-spacing:.12em;color:#8292aa}
+body.bc .studio-sub span{color:#ff6474}
+body.bc .hud{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(250px,.92fr);gap:10px 20px;padding:14px 16px;border:1px solid #34435b;border-radius:10px;margin:10px 0 18px;background:#0d1522;box-shadow:0 14px 32px #0006}
+body.bc .track{grid-column:1/-1;margin-bottom:0}
+body.bc .polls{grid-column:1;grid-row:2}
+body.bc .bar{grid-column:1;grid-row:3;margin-top:0}
+body.bc .stats{grid-column:2;grid-row:2/4;align-self:center;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin:0}
+body.bc .brkleft,body.bc .gtk{grid-column:1/-1}
+body.bc .cand{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:8px}
+body.bc .cand .face{grid-row:1/3}
+body.bc .cand.r{grid-template-columns:1fr auto}
+body.bc .cand.r .face{grid-column:2;grid-row:1/3}
+body.bc .cand.r .tx{grid-column:1;grid-row:1/3}
+body.bc .stat .l{font-size:11px}
+body.bc .gtk{border-top:1px solid #28364c;padding-top:8px}
+body.bc #stage>.card:has(.opts){display:grid;grid-template-columns:minmax(220px,.78fr) minmax(0,1.22fr);gap:12px 30px;align-items:start;padding:clamp(22px,4vw,38px);border:0;border-radius:0;border-top:4px solid #7184a1;background:linear-gradient(140deg,#15243a,#0c1420 70%);box-shadow:0 28px 70px #0007}
+body.bc #stage>.card:has(.opts).blue{border-top-color:#6685ff}
+body.bc #stage>.card:has(.opts).orange{border-top-color:#ffad59}
+body.bc #stage>.card:has(.opts).alert{border-top-color:#ff394c}
+body.bc #stage>.card:has(.opts)::before{display:none}
+body.bc #stage>.card:has(.opts)>.kicker,body.bc #stage>.card:has(.opts)>.nbar{grid-column:1/-1}
+body.bc #stage>.card:has(.opts)>.q{grid-column:1;grid-row:2;font-size:clamp(28px,4vw,44px);margin:0;align-self:end}
+body.bc #stage>.card:has(.opts)>.bgtxt,body.bc #stage>.card:has(.opts)>.speak,body.bc #stage>.card:has(.opts)>.duel{grid-column:1;grid-row:3;margin:0}
+body.bc #stage>.card:has(.opts)>.brk{grid-column:1;grid-row:4;align-self:start}
+body.bc #stage>.card:has(.opts)>.opts{grid-column:2;grid-row:2/5;gap:8px}
+body.bc .opt{grid-template-columns:32px minmax(0,1fr);column-gap:12px;position:relative;padding:14px 16px 14px 13px;border-radius:3px;border-left:3px solid #43536c;min-height:85px}
+body.bc .opt::before{counter-increment:choice;content:counter(choice,decimal-leading-zero);grid-column:1;grid-row:1/4;align-self:center;color:#ff7280;font:700 18px var(--f-num)}
+body.bc .opts{counter-reset:choice}
+body.bc .opt .t,body.bc .opt .d,body.bc .opt .meta{grid-column:2}
+body.bc .opt .t{font-size:16px}
+body.bc .opt .meta{margin-top:5px}
+body.bc .opt:hover{border-left-color:#ff6474;transform:translateX(3px)}
+body.bc #stage>.tv{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);gap:12px 22px;padding:clamp(18px,3vw,30px);border:0;border-top:4px solid #ff394c;border-radius:0;background:linear-gradient(145deg,#111e31,#090f19 72%);box-shadow:0 28px 80px #0008}
+body.bc #stage>.tv>.tvbar,body.bc #stage>.tv>.ticker,body.bc #stage>.tv>.tbar,body.bc #stage>.tv>.tmeta,body.bc #stage>.tv>.tvdet{grid-column:1/-1}
+body.bc #stage>.tv>.pboard{grid-column:1;grid-row:2;display:flex;flex-direction:column;gap:10px;margin:0}
+body.bc #stage>.tv>.mapwrap{grid-column:2;grid-row:2/7;margin:0;display:grid;grid-template-columns:1fr;align-content:center;background:#0a111d;border:1px solid #28364c;padding:14px}
+body.bc .tvmap{max-height:470px}
+body.bc .tvmap path{stroke:#60718b;stroke-width:1.4}
+body.bc .tvmap path:hover{stroke:#fff;stroke-width:2}
+body.bc .mapinfo{grid-column:2;grid-row:7;margin:0;padding:12px;background:#111a29;border-left:3px solid #ff394c;border-radius:0}
+body.bc .tv>.ticker{grid-row:3}
+body.bc .tv>.tbar{grid-row:4}
+body.bc .tv>.tmeta{grid-row:5}
+body.bc .tv>.tvdet{grid-row:8}
+body.bc .cb{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:16px;min-height:145px;padding:18px}
+body.bc .cb .cface{grid-row:1/3}
+body.bc .cb .votes{font-size:clamp(40px,6vw,58px)}
+body.bc .cb .nbar2{display:flex;align-items:center;gap:12px}
+body.bc .ticker{min-height:60px}
+body.bc .tvdet summary{padding:12px 4px;color:#dce6f6}
+
+body.bc[data-bt="light"]{background:linear-gradient(180deg,#dfe7f3 0,var(--bg) 320px)}
+body.bc[data-bt="light"] .studio-head{color:var(--ink);border-bottom-color:#b9c5d8}
+body.bc[data-bt="light"] .studio-sub{color:#66758d}
+body.bc[data-bt="light"] .studio-tg{border-color:#9aa9c0}
+body.bc[data-bt="light"] .onair,body.bc[data-bt="light"] .studio-sub span{color:var(--live)}
+body.bc[data-bt="light"] .hud{background:rgba(255,255,255,.96);border-color:#c6d1e2;box-shadow:0 10px 28px #1a2a4a22}
+body.bc[data-bt="light"] .hud .midp,body.bc[data-bt="light"] .hud .stat .l{color:var(--muted)}
+body.bc[data-bt="light"] .gtk{border-top-color:#d2d9e3}
+body.bc[data-bt="light"] .track i.done{background:#6f7f99}
+body.bc[data-bt="light"] .stat .m i{background:linear-gradient(90deg,#8b98ad,#1b2a45)}
+body.bc[data-bt="light"] .card,body.bc[data-bt="light"] #stage>.card:has(.opts){background:linear-gradient(145deg,#ffffff,#f3f6fb 72%);border-color:#c6d1e2;box-shadow:0 18px 50px #1a2a4a22}
+body.bc[data-bt="light"] .card::before{color:var(--live)}
+body.bc[data-bt="light"] .bgtxt{border-left-color:#9aa9c0;background:#0a1a3a08}
+body.bc[data-bt="light"] .opt{border-color:#c6d1e2;background:linear-gradient(110deg,#ffffff,#f1f5fb)}
+body.bc[data-bt="light"] .opt:hover{border-color:#55678a;background:linear-gradient(110deg,#fff,#e6edf8)}
+body.bc[data-bt="light"] .opt::before{color:var(--live)}
+body.bc[data-bt="light"] .chip{background:#0a1a3a08}
+body.bc[data-bt="light"] .btn{background:#121924;color:#fff}
+body.bc[data-bt="light"] .tv .btn.ghost{color:var(--tv-ink);border-color:#70819b}
+body.bc[data-bt="light"] .btn.ghost{background:transparent;color:var(--ink);border-color:#8494ad}
+body.bc[data-bt="light"] .cmp{border-color:#c6d1e2}
+body.bc[data-bt="light"] .cmp summary{background:#0a1a3a08}
+body.bc[data-bt="light"] .res th,body.bc[data-bt="light"] .res td{border-bottom-color:#d2d9e3}
+body.bc .tv .btn{background:#dce6f6;color:#111a29}
+body.bc[data-bt="light"] .tv .btn{background:#dce6f6;color:#111a29}
+body.bc[data-bt="light"] .tv .btn.ghost{background:transparent;color:var(--tv-ink)}
+
+.pollbox,.cmpbody{--bg:#e9eef6;--surface:#ffffff;--ink:#121924;--muted:#566275;--line:#d2d9e3;--blue:#0022CC;--blue-solid:#0022CC;--blue-accent:#0A5BD9;--on-blue:#fff;--blue-soft:#dbe8ff;--orange:#e2700a;--on-orange:#1d1103;--orange-soft:#ffe6cc;--swing:#7d8ba0;--swing-soft:#e4e9f0;--live:#d71f2e;--good:#0d7a55;--bad:#c42b39;--warn:#a96400;color-scheme:light}
+.pollbox,.cmpbody{background:#fff;color:#121924}
+body.bc .pollbox{border-color:#c6d1e2}
+body.bc .pollbox .btn{background:#121924;color:#fff}
+body.bc .pollbox .btn.ghost{background:transparent;color:#121924;border-color:#8494ad}
+body.bc .cmpbody{background:#fff}
+body.bc .cmp summary{color:var(--ink)}
+body.bc #stage>.tv>.ticker,body.bc #stage>.tv>.tbar,body.bc #stage>.tv>.tmeta{grid-column:1}
+body.bc .tv .btn.ghost,body.bc[data-bt] .tv .btn.ghost{background:transparent;color:var(--tv-ink);border-color:#70819b}
+/* Mobile: keep the same split-screen layout as desktop, scaled down */
+@media(max-width:680px){
+body.bc{font-size:13px;line-height:1.5;padding-top:40px}
+body.bc::before{height:24px;font-size:10px}
+body.bc .hud{top:24px;position:static}
+body.bc .studio-head{padding:8px 0 8px;gap:8px;flex-direction:row;align-items:center}
+body.bc .studio-mark{font-size:13px;gap:8px}
+body.bc .studio-sub{display:none}
+body.bc .studio-tg{padding:2px 10px;font-size:10px}
+body.bc .hud{grid-template-columns:1fr;gap:5px;padding:8px 10px;margin:6px 0 10px}
+body.bc .track,body.bc .polls,body.bc .bar,body.bc .stats,body.bc .brkleft,body.bc .gtk{grid-column:1;grid-row:auto}
+body.bc .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0}
+body.bc .polls{gap:4px}
+body.bc .cand{gap:4px}
+body.bc .cand .nm{font-size:11px}
+body.bc .cand .num{font-size:30px}
+body.bc .cand .num small{font-size:11px}
+body.bc .midp{font-size:10px}body.bc .midp b{font-size:12px;display:block}
+body.bc .bar{height:9px}
+body.bc .stats{gap:5px 10px}
+body.bc .stat .l{font-size:10px}body.bc .stat .v,body.bc .stat b{font-size:12px}
+body.bc .brkleft{font-size:10px}
+body.bc .gtk{font-size:11px;padding-top:5px}
+body.bc .track i{height:4px}
+body.bc #stage>.card:has(.opts){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:8px 12px;padding:12px 12px 14px;margin-top:10px}
+body.bc #stage>.card:has(.opts)>.q{font-size:19px;line-height:1.25}
+body.bc #stage>.card:has(.opts)>.bgtxt{font-size:11px;padding:6px 8px;line-height:1.45}
+body.bc #stage>.card:has(.opts)>.brk{padding:8px}
+body.bc .brk,body.bc .brk p,body.bc .brk div,body.bc .brk span{font-size:11px;line-height:1.45}
+body.bc .brk b,body.bc .brk h3,body.bc .brk strong{font-size:12px}
+body.bc #stage>.card:has(.opts)>.brk .btn{padding:6px 10px;font-size:11px;min-height:0}
+body.bc .kicker{font-size:10px}
+body.bc .opt{min-height:0;padding:8px 8px 8px 8px;grid-template-columns:20px minmax(0,1fr);column-gap:7px}
+body.bc .opt::before{font-size:13px}
+body.bc .opt .t{font-size:12.5px;line-height:1.35}
+body.bc .opt .d{font-size:11px;line-height:1.4}
+body.bc .opt .meta{margin-top:3px;gap:3px}
+body.bc .chip{font-size:9.5px;padding:0 6px}
+body.bc .card{padding:14px 12px}
+body.bc h2.q{font-size:20px}
+body.bc .btn{padding:8px 14px;font-size:13px}
+body.bc #stage>.tv{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:8px 10px;padding:10px;margin-top:8px}
+body.bc #stage>.tv>.pboard{grid-column:1;grid-row:2;gap:6px;min-width:0}
+body.bc #stage>.tv>.mapwrap{grid-column:2;grid-row:2;padding:4px;align-self:stretch;min-width:0}
+body.bc #stage>.tv>.ticker,body.bc #stage>.tv>.tbar,body.bc #stage>.tv>.tmeta,body.bc #stage>.tv>.mapinfo,body.bc #stage>.tv>.tvdet{grid-column:1/-1}
+body.bc #stage>.tv>.ticker{grid-row:3}body.bc #stage>.tv>.tbar{grid-row:4}body.bc #stage>.tv>.tmeta{grid-row:5}
+body.bc #stage>.tv>.mapinfo{grid-row:6;font-size:11px;padding:6px 8px;min-height:0}
+body.bc #stage>.tv>.tvdet{grid-row:7}
+body.bc .tvmap{max-height:none;width:100%;height:auto}
+body.bc .tvbar{font-size:11px;gap:6px;flex-wrap:nowrap;align-items:center}
+body.bc .tvbar .btn{padding:3px 8px;font-size:11px;min-height:0;white-space:nowrap}
+body.bc .tvbar .sub{font-size:10px;white-space:nowrap}
+body.bc .tvbar .ttl{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+body.bc .pk{min-height:0;padding:6px;gap:2px 6px;overflow:hidden;min-width:0}
+body.bc .pk .votes{font-size:20px}
+body.bc .pk .cface{width:26px;height:26px}
+body.bc .pk .nbar2{font-size:11px;gap:3px;padding:1px 4px;margin-top:2px}
+body.bc .pk .nbar2 small{font-size:9px}
+body.bc .pk .nbar2 .pc{margin-left:auto}
+body.bc .pk .who{font-size:11px}body.bc .pk .pc{font-size:12px}body.bc .pk .tag{font-size:9px;padding:0 3px}
+body.bc .ticker{height:auto;min-height:40px;font-size:11px}
+body.bc .tmeta{font-size:10px;margin:2px 0}
+
+}
+
+/* ===== v11: 各區開票卡片直列（3 張一批，整批由右往左淡入淡出） ===== */
+.tv{--dh:62px;--dg:6px}
+.dlist{position:relative;overflow:hidden;height:calc(var(--dh)*3 + var(--dg)*2);margin:8px 0 0}
+.dpage{position:absolute;inset:0;display:flex;flex-direction:column;gap:var(--dg)}
+.dpage.in{animation:dpIn .6s cubic-bezier(.2,.8,.2,1) both}
+.dpage.out{animation:dpOut .6s ease-in both;pointer-events:none}
+@keyframes dpIn{from{transform:translateX(60%);opacity:0}to{transform:none;opacity:1}}
+@keyframes dpOut{from{transform:none;opacity:1}to{transform:translateX(-60%);opacity:0}}
+.dl{flex:none;height:var(--dh);display:grid;grid-template-columns:32px minmax(0,1fr) auto;grid-template-rows:1fr 1fr;background:#0b1530;border:2px solid #b8934a;position:relative;overflow:hidden;min-width:0}
+.dl .dn{grid-row:1/3;grid-column:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#27408f,#0e1a4d);color:#fff;font-weight:900;font-size:14px;line-height:1.05;overflow:hidden}
+.dl .dn s{text-decoration:none;display:block}
+.dl.fb .dn{background:linear-gradient(180deg,#2038F0,#1B2A9C)}
+.dl.fo .dn{background:linear-gradient(180deg,#d9822b,#8A4A0C)}
+.dl .dr{grid-column:2;display:flex;align-items:center;gap:3px;padding:0 8px;font-family:var(--f-num);font-weight:700;color:#fff;font-variant-numeric:tabular-nums;min-width:0;white-space:nowrap;line-height:1}
+.dl .dr.b{grid-row:1;background:linear-gradient(90deg,#1c2f9e,#2038f0);border-bottom:1px solid #0a101c}
+.dl .dr.o{grid-row:2;background:linear-gradient(90deg,#b4600f,#e28a2f)}
+.dl .dr em{font-style:normal;color:#ff4a58;font-size:11px;width:11px;flex:none;text-shadow:0 0 3px #000}
+.dl .dr b{font-size:21px;font-weight:700}
+.dl .dr i{font-style:normal;font-family:var(--f-sans);font-size:12px;font-weight:900;align-self:flex-end;padding-bottom:2px}
+.dl .dr u{text-decoration:none;font-size:15px;align-self:flex-end;padding-bottom:1px}
+.dl .ds{grid-column:3;grid-row:1/3;display:grid;place-items:center;padding:0 8px;background:#101a2c;color:var(--tv-muted);font:700 13px var(--f-num);letter-spacing:.04em;min-width:44px;border-left:1px solid #26324a}
+.dl.run .ds{color:#fff}
+.dl.fb .ds{background:#1B2A9C;color:#dfe5ff}
+.dl.fo .ds{background:#8A4A0C;color:#ffe3c2}
+body.bc #stage>.tv>.dlist{grid-column:1;grid-row:3}
+body.bc #stage>.tv>.ticker{grid-row:4}
+body.bc #stage>.tv>.tbar{grid-row:5}
+body.bc #stage>.tv>.tmeta{grid-row:6}
+@media(max-width:680px){
+  .tv{--dh:38px;--dg:4px}
+  .dl{grid-template-columns:24px minmax(0,1fr) auto;border-width:1px}
+  .dl .dn{font-size:9px}
+  .dl .dr{padding:0 4px;gap:1px}
+  .dl .dr b{font-size:14px}.dl .dr i{font-size:9px;padding-bottom:1px}.dl .dr u{font-size:11px;padding-bottom:0}
+  .dl .dr em{font-size:8px;width:8px}
+  .dl .ds{font-size:10px;min-width:30px;padding:0 3px}
+  body.bc #stage>.tv>.mapwrap{grid-row:2/5}
+  body.bc #stage>.tv>.dlist{grid-column:1;grid-row:3/5;margin:0;align-self:start}
+  body.bc #stage>.tv>.ticker{grid-column:1/-1;grid-row:5}
+  body.bc #stage>.tv>.tbar{grid-row:6}
+  body.bc #stage>.tv>.tmeta{grid-row:7}
+  body.bc #stage>.tv>.mapinfo{grid-row:8}
+  body.bc #stage>.tv>.tvdet{grid-row:9}
+}
+@media (prefers-reduced-motion:reduce){.dpage.in,.dpage.out{animation:none}}
+
+/* 抹黑卡發言摘要：頭像與標籤同列，內文佔滿整行（不再擠在頭像旁） */
+.speak:not(.solo){display:block}
+.speak .sh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.speak .sh b{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.speak .sh .sf{width:44px;height:44px;flex:none}
+.speak:not(.solo) .bub{border-width:0 0 0 4px;padding:8px 12px;font-size:14px;line-height:1.7}
+.speak:not(.solo) .bub::before{display:none}
+@media(max-width:680px){.speak .sh .sf{width:36px;height:36px}.speak:not(.solo) .bub{font-size:12.5px;padding:6px 10px}}
+
+/* 當選確定橫幅：放在兩張名牌正下方，整條寬度；左紅色標籤、右大字姓名 */
+.pboard .banner{margin:0;padding:0;text-align:left;font-size:inherit;border-radius:0;overflow:hidden;align-items:stretch;box-shadow:0 0 24px #ff394c33;animation:bnIn .6s cubic-bezier(.2,.8,.2,1) both}
+.pboard .banner.show{display:flex}
+.pboard .banner.blue{background:linear-gradient(100deg,#1B2A9C,#2038F0 70%,#4a6bff)}
+.pboard .banner.orange{background:linear-gradient(100deg,#8A4A0C,#d9822b 70%,#ffad59)}
+.pboard .banner .bt{flex:none;display:flex;align-items:center;background:var(--live);color:#fff;font-weight:900;font-size:13px;letter-spacing:.12em;padding:0 12px;white-space:nowrap}
+.pboard .banner .bw{display:flex;flex-direction:column;justify-content:center;padding:8px 14px;min-width:0;color:#fff;line-height:1.15}
+.pboard .banner.orange .bw{color:#1d1103}
+.pboard .banner .bw b{font-size:26px;font-weight:900;letter-spacing:.04em}
+.pboard .banner .bw small{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;opacity:.92}
+@keyframes bnIn{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:680px){
+  .pboard .banner{flex-direction:column}
+  .pboard .banner .bt{font-size:10px;padding:2px 6px;justify-content:center}
+  .pboard .banner .bw{padding:3px 6px}
+  .pboard .banner .bw b{font-size:16px}
+  .pboard .banner .bw small{font-size:9px;letter-spacing:.04em}
+}
+@media (prefers-reduced-motion:reduce){.pboard .banner{animation:none}}
 </style>
 
 <div class="wrap">
+  <div class="studio-head" id="studiohead"><div class="studio-mark"><span class="onair"><i></i>ON AIR</span><span>台北選戰特別報導</span></div><div class="studio-r"><div class="studio-sub">2026 MAYORAL RACE <span>／</span> 決策模擬</div><button type="button" class="studio-tg" id="btTg" aria-label="切換淺色或深色畫面">☀ 淺色</button></div></div>
   <header class="hud" id="hud" hidden>
     <div class="track" id="track"></div>
     <div class="polls">
@@ -1075,9 +1369,16 @@ function updateHud(){
   for(let i=0;i<7;i++){const cls=i<cur?'done':i===cur?'cur':'';h+=`<i class="${cls}${i===6?' deb':''}"></i>`;}
   $('#track').innerHTML=h;
 }
+function setBc(p){document.body.classList.toggle('bc',p!=='intro'&&p!=='final');}
+(function(){
+  let m='dark';try{m=localStorage.getItem('bt')==='light'?'light':'dark';}catch(e){}
+  const b=document.body,g=document.getElementById('btTg');
+  function ap(){b.dataset.bt=m;g.textContent=m==='dark'?'☀ 淺色':'☾ 深色';}
+  ap();g.addEventListener('click',()=>{m=m==='dark'?'light':'dark';try{localStorage.setItem('bt',m);}catch(e){}ap();});
+})();
 function render(scroll=true){
   updateHud();
-  const p=view.phase;
+  const p=view.phase;setBc(p);
   stage.innerHTML=({intro:introHtml,topic:topicHtml,smear:smearHtml,action:actionHtml,result:resultHtml,debate:debateHtml,final:finalHtml})[p]();
   if(scroll)window.scrollTo(0,0);
 }
@@ -1180,7 +1481,7 @@ function smearHtml(){
     <div class="nbar"><span class="bg">BREAKING</span>${TCOL[G.opp]}發動攻勢，必須回應</div>
     <div class="kicker"><span class="alertt">遭到抹黑</span>強制反擊 · 三選一</div>
     <h2 class="q">${ev.title}</h2>
-    <div class="speak"><span class="sf">${avSvg(G.opp,'n')}</span><div class="bub"><b>${NAME[G.opp]}陣營 · 發言摘要</b>${ev.text}</div></div>
+    <div class="speak"><div class="sh"><span class="sf">${avSvg(G.opp,'n')}</span><b>${NAME[G.opp]}陣營 · 發言摘要</b></div><div class="bub">${ev.text}</div></div>
     <div class="opts">${ev.counters.map((c,i)=>{const tier=TIERS_ORDER[i];return `<button class="opt" data-a="smear" data-i="${i}"><span class="t">${c.t}</span><span class="d">${c.d}</span><span class="meta">${tierChip(tier,smearP(G,tier))}<span class="chip up">成功：對手支持者倒戈約 ${(TIER[tier].fl*FLIP).toFixed(1)} 點</span><span class="chip down">失敗：−${TIER[tier].loss.toFixed(1)}</span></span></button>`;}).join('')}</div>
   </section>${ntick()}`;
 }
@@ -1354,11 +1655,13 @@ function countSkeleton(){
     <div class="pboard" id="pboard">
       <div class="pk blue" id="cbB"><span class="cface" id="cfB"></span><div class="cm"><div class="votes" id="vB">0</div><div class="nbar2"><span class="who">蔣萬安 <small>藍</small></span><span class="tag" id="tgB">領先</span><span class="pc" id="pB">0.0%</span></div></div></div>
       <div class="pk orange" id="cbO"><span class="cface" id="cfO"></span><div class="cm"><div class="votes" id="vO">0</div><div class="nbar2"><span class="who">沈伯洋 <small>橘</small></span><span class="tag" id="tgO">領先</span><span class="pc" id="pO">0.0%</span></div></div></div>
+      <div class="banner" id="banner" role="status"></div>
     </div>
+    <div class="dlist" id="dlist" aria-label="各區開票進度（輪播）"></div>
     <div class="ticker" id="tk" role="status" aria-live="polite"></div>
     <div class="tbar" style="margin-top:12px"><i class="b" id="tbB"></i><i class="x" id="tbX"></i><i class="o" id="tbO"></i></div>
     <div class="tmeta"><span id="cLead">開票準備中</span><span id="cRem">尚未開出</span></div>
-    <div class="mapwrap"><div class="banner" id="banner"></div><svg class="tvmap" id="tvmap" viewBox="0 0 413 550" role="group" aria-label="台北市 12 行政區開票地圖">${Object.keys(MAPD).map((n,i)=>`<path data-d="${n}" id="mp${i}" d="${MAPD[n].d}" fill="#1a2438" tabindex="0" role="button" aria-label="${n}"/>`).join('')}${Object.keys(MAPD).map((n,i)=>`<text x="${MAPD[n].x}" y="${MAPD[n].y}" font-size="${MAPD[n].f}" id="mt${i}">${MAPD[n].s}</text><text class="sub" x="${MAPD[n].x}" y="${MAPD[n].y+MAPD[n].f*.95}" font-size="${Math.max(10,MAPD[n].f*.75)}" id="ms${i}"></text>`).join('')}</svg></div>
+    <div class="mapwrap"><svg class="tvmap" id="tvmap" viewBox="0 0 413 550" role="group" aria-label="台北市 12 行政區開票地圖">${Object.keys(MAPD).map((n,i)=>`<path data-d="${n}" id="mp${i}" d="${MAPD[n].d}" fill="#1a2438" tabindex="0" role="button" aria-label="${n}"/>`).join('')}${Object.keys(MAPD).map((n,i)=>`<text x="${MAPD[n].x}" y="${MAPD[n].y}" font-size="${MAPD[n].f}" id="mt${i}">${MAPD[n].s}</text><text class="sub" x="${MAPD[n].x}" y="${MAPD[n].y+MAPD[n].f*.95}" font-size="${Math.max(10,MAPD[n].f*.75)}" id="ms${i}"></text>`).join('')}</svg></div>
     <p class="mapinfo" id="mapinfo" aria-live="polite">點地圖上的區塊，看該區開票進度與票數。</p>
     <details class="tvdet"><summary>各區明細卡片</summary><div class="dgrid" id="dgrid"></div></details>
   </section>`;
@@ -1402,6 +1705,39 @@ function reorderBoard(top){
     el.style.transition='transform .5s cubic-bezier(.2,.8,.2,1)';el.style.transform='';
   });
 }
+
+// ===== 各區開票卡片橫排輪播（一次 3 張，整批由右往左淡入、舊的一批往左淡出；12 區分 4 批循環） =====
+function dlVotes(v){return v>=10000?`<b>${Math.floor(v/10000)}</b><i>萬</i><u>${String(v%10000).padStart(4,'0')}</u>`:`<b>${v}</b>`;}
+function dlInner(i,c){
+  const d=c.ds[i],pend=d.p<=0,k=pend?{b:0,o:0}:ct(d);
+  const lb=!pend&&k.b>k.o,lo=!pend&&k.o>k.b;
+  const st=pend?'待開':d.fin?(d.r.b>d.r.o?'藍勝':'橘勝'):Math.round(d.p*100)+'%';
+  return `<span class="dn">${[...d.r.name].map(ch=>"<s>"+ch+"</s>").join("")}</span><span class="dr b"><em>${lb?'▲':''}</em>${pend?'<b>—</b>':dlVotes(k.b)}</span><span class="dr o"><em>${lo?'▲':''}</em>${pend?'<b>—</b>':dlVotes(k.o)}</span><span class="ds">${st}</span>`;
+}
+function dlCls(i,c){const d=c.ds[i];return 'dl'+(d.fin?(d.r.b>d.r.o?' fb':' fo'):d.p>0?' run':'');}
+function dlPage(c,cls){
+  const pg=document.createElement('div');pg.className='dpage'+(cls?' '+cls:'');
+  pg.innerHTML=[0,1,2].map(k=>{const i=(c.dlS+k)%12;return `<div class="${dlCls(i,c)}" data-i="${i}">${dlInner(i,c)}</div>`;}).join('');
+  return pg;
+}
+function dlBuild(c){const el=$('#dlist');if(!el)return;el.innerHTML='';el.appendChild(dlPage(c,''));}
+function dlFill(c){
+  const el=$('#dlist');if(!el)return;
+  el.querySelectorAll('.dl').forEach(x=>{const i=+x.dataset.i;x.className=dlCls(i,c);x.innerHTML=dlInner(i,c);});
+}
+function dlTick(c){
+  dlFill(c);
+  if(c.dlBusy||c.t<c.dlNext)return;
+  const el=$('#dlist');if(!el)return;
+  c.dlNext=c.t+3;
+  const old=el.querySelector('.dpage');
+  c.dlS=(c.dlS+3)%12;
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){dlBuild(c);return;}
+  c.dlBusy=true;
+  if(old){old.classList.add('out');}
+  el.appendChild(dlPage(c,'in'));
+  setTimeout(()=>{if(cnt!==c||!$('#dlist'))return;c.dlBusy=false;dlBuild(c);},c.fast?150:650);
+}
 let CNT_SW=0;   // 早期拉鋸：全市共同的來回擺盪（個百分點），約 14 秒內衰減為 0
 function ct(d){
   const r=d.r,p=d.p;
@@ -1430,16 +1766,17 @@ function startCount(){
   cnt={F,t:0,fast:false,queue:[],tkUntil:null,lead:null,lastLeadT:-99,done:false,
     ds:F.rows.map(r=>({r,p:0,start:rnd(0,8),dur:rnd(23,34),bias:(Math.random()+Math.random()-1)*6,fin:false}))};
   {const tt=F.T.b+F.T.o+F.T.x;cnt.sw={amp:Math.abs(F.T.b-F.T.o)/tt*100/2+6,ph:rnd(0,6.28)};}
-  view={phase:'count'};hud.hidden=true;newsStop();
+  view={phase:'count'};hud.hidden=true;newsStop();setBc('count');
   countSkeleton();window.scrollTo(0,0);
   pushNews('【模擬開票】12 區陸續開出（遊戲推演，不是真實開票）');
+  cnt.dlS=0;cnt.dlNext=3;cnt.dlBusy=false;dlBuild(cnt);
   tickCount();
   cnt.timer=setInterval(tickCount,100);
 }
 function tickCount(){
   const c=cnt;c.t+=0.1*(c.fast?10:1);
   CNT_SW=c.sw.amp*Math.sin(c.t*3.0+c.sw.ph)*Math.max(0,1-c.t/14);
-  tickerStep(c);
+  tickerStep(c);dlTick(c);
   if(c.done){
     // 開票完成後：佇列播完就循環播報 12 區最終得票，直到離開開票畫面
     if(!c.queue.length&&c.t>=c.tkUntil){
@@ -1506,7 +1843,7 @@ function tickCount(){
     if(c.usedFast)c.queue=[];
     const w=c.F.winner;
     pushNews(`【當選確定】${NAME[w]}（${TCOL[w]}）當選台北市長（遊戲推演）`);
-    const bn=$('#banner');bn.className='banner show '+w;bn.innerHTML=`<small>當選確定</small>${NAME[w]} 當選`;
+    const bn=$('#banner');bn.className='banner show '+w;bn.innerHTML=`<span class="bt">★ 當選確定</span><span class="bw"><b>${NAME[w]}</b><small>${TCOL[w]}當選台北市長</small></span>`;
     $('#fin').hidden=false;$('#skipBtn').hidden=true;
     cbB.classList.toggle('win',w==='blue');cbO.classList.toggle('win',w==='orange');
     cbB.classList.remove('lead');cbO.classList.remove('lead');
