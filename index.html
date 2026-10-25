@@ -740,6 +740,179 @@ body.bc #stage>.tv>.tmeta{grid-row:6}
   .pboard .banner .bw small{font-size:9px;letter-spacing:.04em}
 }
 @media (prefers-reduced-motion:reduce){.pboard .banner{animation:none}}
+
+/* ===== v12: 一屏版面（遊戲中不用捲動）— 只在 body.fit（topic/smear/action/result/debate）套用 ===== */
+body.fit{margin:0;height:100vh;height:100dvh;--z:1;overflow:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:0;padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px))}
+body.fit::before{display:none}
+body.fit .foot{display:none}
+body.fit .wrap{zoom:var(--z,1);height:calc(100dvh / var(--z,1));display:flex;flex-direction:column;max-width:1000px;padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+body.fit .studio-head{flex:none;padding:6px 2px;margin:0;gap:8px}
+body.fit .studio-mark{font-size:13px;gap:8px}
+body.fit .studio-sub{display:none}
+body.fit .studio-tg{padding:1px 10px}
+body.fit #hud{flex:none;position:static;top:auto;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:4px 14px;padding:6px 10px;margin:2px 0 6px}
+body.fit #stage{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;display:flex;flex-direction:column}
+body.fit #stage>section.card{flex:none}
+@media(min-width:681px){body.fit #stage>section.card{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center}body.fit #stage>section.card:has(.opts){display:grid;align-content:center}body.fit #stage>section.card>.nbar{margin-top:-12px}}
+/* HUD 緊湊 */
+body.fit .track{margin:0}
+body.fit .track i{height:4px}
+body.fit .hud .polls{gap:3px}
+body.fit .hud .cand{padding:3px 8px;gap:6px}
+body.fit .hud .cand .face{width:30px;height:30px}
+body.fit .cand .nm{font-size:12px;line-height:1.2}
+body.fit .cand .num{font-size:26px;line-height:1}
+body.fit .cand .num small{font-size:12px}
+body.fit .midp{font-size:10px;line-height:1.2}body.fit .midp b{font-size:15px}
+body.fit .bar{height:8px}
+body.fit .stats{gap:3px 14px}
+body.fit .stat .l{font-size:10px}body.fit .stat .l b{font-size:12px}
+body.fit .stat .m{height:4px}
+body.fit .brkleft{margin:0;font-size:11px}
+body.fit .gtk{margin-top:2px;padding-top:4px}
+body.fit .gtk .vw{height:32px;font-size:11px;line-height:1.25}
+body.fit .gtk .tg{font-size:10px;padding:0 6px}
+/* 卡片緊湊 */
+body.fit .card{margin-top:0;padding:12px 16px;box-shadow:0 8px 24px #0004}
+body.fit .card::before{display:none}
+body.fit .nbar{margin:-12px -16px 8px;padding:4px 12px;font-size:12px}
+body.fit .kicker{font-size:11px;letter-spacing:.1em}
+body.fit h2.q{font-size:clamp(20px,2.6vw,28px);margin:2px 0 4px;line-height:1.2}
+body.fit .bgtxt{font-size:13px;line-height:1.5;padding:6px 10px;margin:0}
+body.fit .opts{gap:6px}
+body.fit .opt{padding:8px 12px;min-height:0}
+body.fit .opt .t{font-size:15px;line-height:1.3}
+body.fit .opt .d{font-size:12px;line-height:1.35}
+body.fit .opt .meta{margin-top:3px;gap:4px}
+body.fit .chip{font-size:11px;line-height:18px;padding:0 6px}
+body.fit .brk{padding:6px 10px;margin:0;gap:6px}
+body.fit .brk .tx{font-size:12px;line-height:1.4}body.fit .brk .tx b{display:inline;font-size:13px}
+body.fit .tgl{padding:3px 10px;font-size:12px}
+body.fit .ntick{margin:6px 0 0;padding:3px 10px;font-size:12px;white-space:nowrap;overflow:hidden}
+body.fit .ntick span:last-child{overflow:hidden;text-overflow:ellipsis}
+body.fit .btn{margin-top:8px;padding:8px 20px}
+/* 更多背景：浮層摺疊 */
+body.fit .more{display:inline;margin-left:4px}
+body.fit .more summary{display:inline;cursor:pointer;color:var(--blue-accent);font-size:11px;font-weight:700;white-space:nowrap;list-style:none;border:1px solid currentColor;border-radius:99px;padding:0 7px}
+body.fit .more summary::-webkit-details-marker{display:none}
+body.fit .more summary::after{content:" ▾"}
+body.fit .more[open] summary::after{content:" ▴"}
+body.fit .morebody{position:absolute;left:12px;right:12px;top:50%;transform:translateY(-50%);z-index:6;padding:12px 14px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--live);box-shadow:0 12px 40px #000a;font-size:14px;line-height:1.6;cursor:pointer}
+body.fit .morebody::after{content:"點一下關閉";display:block;margin-top:6px;font-size:11px;color:var(--muted)}
+body.fit .bgtxt .more{position:static}
+/* 議題／抹黑／行程（兩欄）桌機：左題右選項 */
+body.fit #stage>.card:has(.opts){padding:12px 18px;gap:6px 24px;align-items:center}
+body.fit #stage>.card:has(.opts)>.q{font-size:clamp(22px,2.8vw,32px);align-self:start}
+/* 結果卡：左右分欄（左：成敗說明；右：數值變化＋按鈕） */
+body.fit .rmain{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:10px 20px;align-items:start;margin-top:4px}
+body.fit .rmain .lines{margin:0;gap:5px}
+body.fit .lines li{padding:6px 10px;font-size:13px;line-height:1.45}
+body.fit .rside{display:flex;flex-direction:column;align-items:flex-start}
+body.fit .rside .deltas{margin:0;gap:4px}
+body.fit .rside .btnrow{margin-top:4px}
+/* 辯論：兩位頭像左右對峙，題目放中間 */
+body.fit .card.debate{display:block!important;padding:12px 18px}
+body.fit .card.debate>*{grid-column:auto!important;grid-row:auto!important}
+body.fit .pkrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;margin:0 0 6px}
+body.fit .pkrow .df{width:76px;height:76px;border-width:4px}
+body.fit .pkrow .df:first-child{transform:rotate(-3deg)}body.fit .pkrow .df:last-child{transform:rotate(3deg)}
+body.fit .pkmid{text-align:center;min-width:0}
+body.fit .pkmid .dvs{display:block;font-size:26px;line-height:1}
+body.fit .pkmid h2.q{font-size:clamp(20px,2.8vw,30px);margin:2px 0 0}
+body.fit .card.debate .speak.solo{margin:0 0 10px}
+body.fit .card.debate .speak .bub{padding:6px 10px;font-size:13px;line-height:1.5}
+body.fit .card.debate .speak .bub b{display:inline;margin-right:6px}
+body.fit .card.debate .opts{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+body.fit .card.debate .opt{align-content:start}
+/* 縮放級別（JS 在放不下時逐級加上） */
+body.fit.f1 .studio-head{padding:3px 2px}
+body.fit.f1 #hud{padding:4px 8px;margin:0 0 4px}
+body.fit.f1 .card,body.fit.f1 #stage>.card:has(.opts){padding:8px 12px}
+body.fit.f1 .nbar{margin:-8px -12px 6px}
+body.fit.f1 .opt{padding:5px 10px}
+body.fit.f1 .opt .t{font-size:14px}body.fit.f1 .opt .d{font-size:11px}
+body.fit.f1 .opts{gap:4px}
+body.fit.f1 .gtk .vw{height:30px}
+body.fit.f2 .opt .d{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+body.fit.f2 .bgtxt{font-size:12px;padding:4px 8px}
+body.fit.f2 .brkleft,body.fit.f2 .ntick{display:none}
+body.fit.f2 .cand .num{font-size:22px}
+body.fit.f2 .lines li{padding:4px 8px;font-size:12px}
+body.fit.f3 .card{zoom:.9}
+body.fit.f3 .opt{padding:3px 8px}body.fit.f3 .opts{gap:3px}body.fit.f3 #hud{padding:3px 8px;margin:0 0 3px}
+body.fit.f3 .gtk{display:none}
+/* 手機直立 */
+@media(max-width:680px){
+  body.fit{font-size:13px}
+  body.fit #hud{grid-template-columns:1fr;gap:3px;padding:5px 8px;margin:0 0 5px}
+  body.fit .track,body.fit .polls,body.fit .bar,body.fit .stats,body.fit .brkleft,body.fit .gtk{grid-column:1;grid-row:auto}
+  body.fit .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px 8px}
+  body.fit .hud .cand .face{width:26px;height:26px}
+  body.fit .cand .num{font-size:24px}
+  body.fit .cand .nm{font-size:11px}
+  body.fit .stat .l{font-size:9.5px}
+  body.fit .stat .l span{overflow:hidden;text-overflow:ellipsis}
+  body.fit .card,body.fit #stage>.card:has(.opts){padding:10px 12px}
+  body.fit .nbar{margin:-10px -12px 6px;font-size:11px}
+  body.fit #stage>.card:has(.opts){grid-template-columns:minmax(0,1fr)!important;gap:5px}
+  body.fit #stage>.card:has(.opts)>*{grid-column:1!important;grid-row:auto!important}
+  body.fit #stage>.card:has(.opts)>.q{font-size:20px;margin:0}
+  body.fit h2.q{font-size:20px}
+  body.fit .bgtxt{font-size:12px;padding:4px 8px}
+  body.fit .opt{grid-template-columns:18px minmax(0,1fr);column-gap:6px;padding:6px 8px}
+  body.fit .opt .t{font-size:13.5px}
+  body.fit .opt .d{font-size:11px}
+  body.fit .opt .meta{gap:3px}
+  body.fit .chip{font-size:10px;line-height:16px;padding:0 5px;white-space:normal}
+  body.fit .brk{flex-wrap:nowrap}
+  body.fit .rmain{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:6px 10px}
+  body.fit .lines li{font-size:11.5px;padding:5px 7px}
+  body.fit .rside .btn{padding:7px 14px;font-size:13px}
+  body.fit .pkrow{gap:6px}
+  body.fit .pkrow .df{width:54px;height:54px;border-width:3px}
+  body.fit .pkmid .dvs{font-size:20px}
+  body.fit .pkmid h2.q{font-size:18px}
+  body.fit .card.debate .opts{grid-template-columns:1fr;gap:5px}
+  body.fit .morebody{left:8px;right:8px;font-size:13px}
+}
+/* 期中民調視窗：一屏放完 */
+.pollbox{max-height:calc(100dvh - 16px);padding:10px 14px 12px}
+.pollov{padding:8px}
+.pollbox h2{font-size:18px;margin:2px 0 2px}
+.pollx{width:30px;height:30px;font-size:18px}
+.pollmeta{margin:0 0 4px;font-size:11px}
+.pollhl{margin:0 0 4px;font-size:13px}
+.pollsum .n{font-size:24px}.pollsum .nm{font-size:12px}.pollsum small{font-size:11px}
+.pollsvg{max-height:min(180px,24dvh);margin:2px auto}
+.pollt{font-size:12px;margin-top:2px}.pollt th,.pollt td{padding:2px 4px}
+.pollfn{margin:4px 0 0;font-size:10.5px;line-height:1.35}
+.pollbox .btn{margin-top:6px;padding:6px 16px}
+@media(max-width:440px){.pollsum .n{font-size:22px}.pollbox h2{font-size:17px}.pollsvg{max-height:min(150px,22dvh)}}
+
+/* ===== v13: 加分／扣分動態 ===== */
+.fl-pop{position:absolute;left:100%;top:50%;margin-left:6px;z-index:3;font:700 12px/18px var(--f-num);letter-spacing:.02em;padding:0 7px;border-radius:99px;color:#fff;white-space:nowrap;pointer-events:none;animation:flPop 2s cubic-bezier(.2,.8,.2,1) both}
+.fl-pop.lft{left:auto;right:100%;margin-left:0;margin-right:6px}
+.fl-pop.g{background:#0d9f6e}.fl-pop.b{background:#d92d3f}.fl-pop.n{background:#59677f}
+.stat .l .fl-pop{left:auto;right:24px;margin:0}
+.cand .num .fl-pop{left:auto;right:-4px;top:auto;bottom:-6px;margin:0}.cand.r .num .fl-pop{right:auto;left:-4px}
+@keyframes flPop{0%{opacity:0;transform:translateY(-30%) scale(.5)}12%{opacity:1;transform:translateY(-50%) scale(1.18)}22%{transform:translateY(-50%) scale(1)}78%{opacity:1;transform:translateY(-62%)}100%{opacity:0;transform:translateY(-95%)}}
+.fl-pop{transform:translateY(-50%)}
+.midp .fl-pop{left:auto;right:auto;top:auto;bottom:-14px}
+.cand,.stat{will-change:transform}
+.shake{animation:shk2 .7s ease-in-out both}
+.hop{animation:shk1 .35s ease-in-out both}
+@keyframes shk1{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}60%{transform:translateX(5px)}}
+@keyframes shk2{0%,100%{transform:translateX(0)}8%{transform:translateX(-6px)}20%{transform:translateX(6px)}32%{transform:translateX(-4px)}42%{transform:translateX(0)}50%{transform:translateX(0)}58%{transform:translateX(-6px)}70%{transform:translateX(6px)}82%{transform:translateX(-4px)}}
+@media(prefers-reduced-motion:reduce){.shake,.hop{animation:none}}
+.bump-g,.bump-b,.bump-n{animation:bumpNum .9s ease-out}
+.bump-g{text-shadow:0 0 14px #28e0a0,0 0 3px #28e0a0}.bump-b{text-shadow:0 0 14px #ff5566,0 0 3px #ff5566}.bump-n{text-shadow:0 0 12px #aab6c8}
+@keyframes bumpNum{0%{transform:scale(1)}20%{transform:scale(1.14)}100%{transform:scale(1)}}
+.stat .l b.bump-g,.stat .l b.bump-b{animation:bumpNum .9s ease-out}
+.deltas .chip{animation:chipIn .5s cubic-bezier(.2,.8,.2,1) both}
+.deltas .chip:nth-child(2){animation-delay:.08s}.deltas .chip:nth-child(3){animation-delay:.16s}.deltas .chip:nth-child(4){animation-delay:.24s}.deltas .chip:nth-child(5){animation-delay:.32s}.deltas .chip:nth-child(6){animation-delay:.4s}
+@keyframes chipIn{from{opacity:0;transform:translateY(8px) scale(.85)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.fl-pop{animation:none}.bump-g,.bump-b,.bump-n{animation:none}.deltas .chip{animation:none}}
+@media(max-width:680px){.fl-pop{font-size:10.5px;line-height:15px;padding:0 5px}}
 </style>
 
 <div class="wrap">
@@ -1354,22 +1527,82 @@ function posterHd(pk){
 function buildHudStatic(){
   $('#stats').innerHTML=['mid','grass','img','opn'].map(k=>`<div class="stat"><div class="l"><span>${STAT_LABEL[k]}</span><b id="sv-${k}">50</b></div><div class="m"><i id="sb-${k}" style="width:50%"></i></div></div>`).join('');
 }
+// ===== 加分／扣分動態：數字滾動、閃色、旁邊彈出 +0.9／−0.3 小標籤 =====
+let HUDV={},VIB=null;
+const REDUCE=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function hudNum(id,val,dec,suf,dir,thr){
+  const el=document.getElementById(id);if(!el)return;
+  const old=HUDV[id];HUDV[id]=val;
+  const fmt=v=>dec?v.toFixed(dec):String(Math.round(v));
+  const d=old===undefined?0:val-old;
+  if(old===undefined||Math.abs(d)<(thr||.05)){el.textContent=fmt(val)+suf;return;}
+  // 好壞：dir=1 數值增加對玩家是好事；dir=-1 增加是壞事（對手）；dir=0 中性（游移選民）
+  const good=dir===0?null:(d>0)===(dir>0);
+  const host=el.closest('.num')||el.closest('b')||el;
+  if(good!==null&&dir!==-1)VIB=good&&VIB!=='b'?'g':(good?VIB:'b');
+  const sh=el.closest('.cand')||el.closest('.stat');
+  if(sh&&good===false){sh.classList.remove('shake');void sh.offsetWidth;sh.classList.add('shake');setTimeout(()=>sh.classList.remove('shake'),700);}
+  else if(sh&&good){sh.classList.remove('hop');void sh.offsetWidth;sh.classList.add('hop');setTimeout(()=>sh.classList.remove('hop'),700);}
+  host.classList.remove('bump-g','bump-b','bump-n');void host.offsetWidth;
+  host.classList.add(good===null?'bump-n':good?'bump-g':'bump-b');
+  setTimeout(()=>host.classList.remove('bump-g','bump-b','bump-n'),1800);
+  const pop=document.createElement('span');
+  pop.className='fl-pop '+(good===null?'n':good?'g':'b')+(el.closest('.cand.r')?' lft':'');
+  pop.textContent=(d>0?'+':'−')+Math.abs(d).toFixed(dec?1:0);
+  const ph=el.closest('.num')||el.parentElement;ph.style.position='relative';ph.appendChild(pop);setTimeout(()=>pop.remove(),2000);
+  if(REDUCE){el.textContent=fmt(val)+suf;return;}
+  const t0=performance.now(),ms=800;
+  (function step(t){const k=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=fmt(old+d*e)+suf;if(k<1)requestAnimationFrame(step);})(t0);
+}
 function updateHud(){
+  VIB=null;try{updateHud2();}finally{if(VIB&&!REDUCE&&navigator.vibrate)try{navigator.vibrate(VIB==='g'?45:[60,70,60]);}catch(e){}}}
+function updateHud2(){
   const show=G&&['topic','smear','action','result','debate'].includes(view.phase);
   hud.hidden=!show;if(!show)return;
   const S=G.S;
-  $('#pcB').textContent=S.blue.toFixed(1);$('#pcO').textContent=S.orange.toFixed(1);$('#pcS').textContent=S.swing.toFixed(1)+'%';
+  const me=G.side;
+  hudNum('pcB',S.blue,1,'',me==='blue'?1:-1);hudNum('pcO',S.orange,1,'',me==='orange'?1:-1);hudNum('pcS',S.swing,1,'%',0);
   const tot=S.blue+S.orange+S.swing+BASE.other;
   $('#bB').style.width=(S.blue/tot*100)+'%';$('#bS').style.width=((S.swing+BASE.other)/tot*100)+'%';$('#bO').style.width=(S.orange/tot*100)+'%';
   $('#youB').hidden=G.side!=='blue';$('#youO').hidden=G.side!=='orange';
   setFace('faceB','blue',moodFor('blue'));setFace('faceO','orange',moodFor('orange'));
-  ['mid','grass','img','opn'].forEach(k=>{$('#sv-'+k).textContent=Math.round(G.st[k]);$('#sb-'+k).style.width=G.st[k]+'%';});
+  ['mid','grass','img','opn'].forEach(k=>{hudNum('sv-'+k,G.st[k],0,'',1,.5);$('#sb-'+k).style.width=G.st[k]+'%';});
   $('#brkleft').hidden=G.side!=='orange';$('#brkN').textContent=G.breakLeft;
   const cur=view.track;let h='';
   for(let i=0;i<7;i++){const cls=i<cur?'done':i===cur?'cur':'';h+=`<i class="${cls}${i===6?' deb':''}"></i>`;}
   $('#track').innerHTML=h;
 }
-function setBc(p){document.body.classList.toggle('bc',p!=='intro'&&p!=='final');}
+function setBc(p){document.body.classList.toggle('bc',p!=='intro'&&p!=='final');document.body.classList.toggle('fit',['topic','smear','action','result','debate'].includes(p));}
+// 一屏版面：內容放不下時，逐級縮小（f1→f2→f3），仍放不下才允許舞台區內部捲動
+function fitStage(){
+  const b=document.body;['f1','f2','f3'].forEach(c=>b.classList.remove(c));
+  b.style.removeProperty('--z');
+  if(!b.classList.contains('fit'))return;
+  const st=document.getElementById('stage');
+  const over=()=>st.scrollHeight>st.clientHeight+1;
+  // 裝置判斷：電腦／平板（寬度 > 680px）依視窗大小放大整個版面；手機維持緊湊版
+  let z=1;
+  if(innerWidth>680){
+    z=Math.max(1,Math.min(innerWidth/900,innerHeight/430,1.8));
+    z=Math.round(z*20)/20;
+    while(z>1){b.style.setProperty('--z',z);if(!over())break;z=Math.round((z-.05)*20)/20;}
+    b.style.setProperty('--z',z);
+  }
+  if(!over())return;
+  for(const c of ['f1','f2','f3']){
+    b.classList.add(c);
+    if(!over())break;
+  }
+}
+window.addEventListener('resize',()=>fitStage());
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>fitStage());
+// 背景文字：第一句直接顯示，其餘收進「更多背景」摺疊（浮層，不推擠版面）
+function bgHtml(t){
+  const m=t.match(/[^。]+。?/g)||[t];
+  const first=m[0],rest=m.slice(1).join('');
+  return first+(rest?`<details class="more"><summary>更多背景</summary><div class="morebody">${rest}</div></details>`:'');
+}
+document.addEventListener('click',e=>{const mb=e.target.closest('.morebody');if(mb){const d=mb.closest('details');if(d)d.open=false;}});
 (function(){
   let m='dark';try{m=localStorage.getItem('bt')==='light'?'light':'dark';}catch(e){}
   const b=document.body,g=document.getElementById('btTg');
@@ -1381,6 +1614,7 @@ function render(scroll=true){
   const p=view.phase;setBc(p);
   stage.innerHTML=({intro:introHtml,topic:topicHtml,smear:smearHtml,action:actionHtml,result:resultHtml,debate:debateHtml,final:finalHtml})[p]();
   if(scroll)window.scrollTo(0,0);
+  fitStage();
 }
 function sideCard(s){
   const b=s==='blue';
@@ -1455,7 +1689,7 @@ function pushActionNews(act,r,ai){
   newsPush(items);
 }
 function start(side){
-  G=newGame(side);
+  G=newGame(side);HUDV={};
   newsStart({c:'n',lb:'選戰開跑',t:NAME.blue+'對上'+NAME.orange+'，雙方行程快訊會在這裡更新'});
   view={phase:'topic',track:0,topic:G.topics[0],useBreak:false};render();
 }
@@ -1470,7 +1704,7 @@ function topicHtml(){
   return `<section class="card ${side}">
     <div class="kicker">第 ${G.round+1} / 6 題 · 議題</div>
     <h2 class="q">${t.title}</h2>
-    <p class="bgtxt">${t.bg}</p>
+    <div class="bgtxt">${bgHtml(t.bg)}</div>
     ${side==='orange'?breakPanel(t):''}
     <div class="opts">${t[side].map((o,i)=>`<button class="opt" data-a="topic" data-i="${i}"><span class="t">${o.t}</span><span class="d">${o.d}</span><span class="meta"><span class="chip">${TYPE_LABEL[o.k]}</span><span class="chip">${hint[o.k]}</span>${o.k==='C'?'<span class="chip lo">可能引來反彈</span>':''}</span></button>`).join('')}</div>
   </section>`;
@@ -1495,12 +1729,10 @@ function actionHtml(){
 }
 function debateHtml(){
   const t=view.dtopic,k=view.dq;
-  return `<section class="card alert">
+  return `<section class="card alert debate">
     <div class="nbar"><span class="bg">LIVE</span>電視辯論 · 第 ${k+1} / 3 問</div>
-    <div class="duel"><span class="df">${avSvg('blue',moodFor('blue'))}</span><span class="dvs">VS</span><span class="df">${avSvg('orange',moodFor('orange'))}</span></div>
-    <div class="kicker"><span class="alertt">電視辯論</span>第 ${k+1} / 3 問</div>
-    <h2 class="q">${t.title}</h2>
-    <div class="speak solo"><div class="bub"><b>題目背景</b>${t.bg}</div></div>
+    <div class="duel pkrow"><span class="df">${avSvg('blue',moodFor('blue'))}</span><div class="pkmid"><span class="dvs">VS</span><div class="kicker"><span class="alertt">電視辯論</span>第 ${k+1} / 3 問</div><h2 class="q">${t.title}</h2></div><span class="df">${avSvg('orange',moodFor('orange'))}</span></div>
+    <div class="speak solo"><div class="bub"><b>題目背景</b>${bgHtml(t.bg)}</div></div>
     <div class="opts">${DEBATE.map((d,i)=>`<button class="opt" data-a="debate" data-i="${i}"><span class="t">${d.name}</span><span class="d">${d.desc}</span><span class="meta">${tierChip(d.tier,debateP(G,d))}<span class="chip up">成功 +${(d.up+d.fl*FLIP).toFixed(1)}</span><span class="chip down">失敗 −${d.down.toFixed(1)}</span></span></button>`).join('')}</div>
   </section>${ntick()}`;
 }
@@ -1516,9 +1748,9 @@ function resultHtml(){
   return `<section class="card ${v.cls||G.side}">
     <div class="kicker">${v.tag}</div>
     <h2 class="q">${v.title}</h2>
-    <ul class="lines">${v.lines.map(l=>`<li class="${l.k}"><b>${l.h}</b>${l.t}</li>`).join('')}</ul>
-    <div class="deltas">${chips.join('')}</div>
-    <div class="btnrow"><button class="btn" data-a="next">${v.nextLabel||'繼續'}</button>${v.pollGate&&G.pollShown?'<button class="btn ghost" data-a="poll">再看期中民調</button>':''}</div>
+    <div class="rmain"><ul class="lines">${v.lines.map(l=>`<li class="${l.k}"><b>${l.h}</b>${l.t}</li>`).join('')}</ul>
+    <div class="rside"><div class="deltas">${chips.join('')}</div>
+    <div class="btnrow"><button class="btn" data-a="next">${v.nextLabel||'繼續'}</button>${v.pollGate&&G.pollShown?'<button class="btn ghost" data-a="poll">再看期中民調</button>':''}</div></div></div>
   </section>${v.cls==='alert'?ntick():''}`;
 }
 function showResult(o){view={...view,phase:'result',...o,d:diff(o.before,snap(G))};render();}
